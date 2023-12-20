@@ -4,6 +4,7 @@
 /[Ll]ogs/
 /[Bb]uild/
 /[Bb]uilds/
+/[Uu]ser[Ss]ettings/
 /Assets/AssetStoreTools*
 .idea/
 .gradle/
