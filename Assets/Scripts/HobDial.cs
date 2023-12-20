@@ -10,10 +10,10 @@ public class HobDial : MonoBehaviour
     [SerializeField] float fireEmmisionVal = 3f;
 
 
-    [Range(-120f,120f)] float DialVal = -120f;
+    [Range(-120f,120f)] float DialVal = -30;
 
-    private Vector3 PosIn = new Vector3(0.7f,2.1f,2.2f);
-    private Quaternion RotIn = new Quaternion(0, -120, 0, 90);
+    //private Vector3 PosIn = new Vector3(0.7f,2.1f,2.2f);
+    //private Quaternion RotIn = new Quaternion(0, -120, 0, 90);
 
     [SerializeField] ParticleSystem FireSystem;
 
@@ -22,7 +22,7 @@ public class HobDial : MonoBehaviour
     {
         //transform.Rotate(0, -120f, 0);
 
-        transform.SetPositionAndRotation(PosIn, RotIn);
+        //transform.SetPositionAndRotation(PosIn, RotIn);
     }
 
     // Update is called once per frame
@@ -41,15 +41,15 @@ public class HobDial : MonoBehaviour
         }
   
 
-        DialVal = Mathf.Clamp(DialVal, -120f, 120f);
+        DialVal = Mathf.Clamp(DialVal, -30f, 210f);
 
         Vector3 rot = transform.localEulerAngles;
-        rot.y = DialVal;
+        rot.z = DialVal;
         transform.localEulerAngles = rot;
 
         //transform.Rotate(0, DialVal, 0);
 
-        fireLevel = MapValue(DialVal, -120f, 120f, 1f, 100f);
+        fireLevel = MapValue(DialVal, -30f, 210f, 1f, 100f);
         //Debug.Log("Fire Level: " + fireLevel);
 
 
