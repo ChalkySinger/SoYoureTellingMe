@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
 
 public class CanvasScript : MonoBehaviour
@@ -30,11 +31,21 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] float progressBarTimerCountdown = .5f; //how often to increase
 
     float progressBarTimer;
-   
-        
-    void Start()
+
+
+    [Header("Radial Menu")]
+    [SerializeField] Transform middle;
+    [SerializeField] Transform select;
+
+    [SerializeField] GameObject radialMenu;
+
+    bool radialMenuActive; 
+    void Start() 
     {
         fireLevelSlider.value = 1;
+
+        radialMenu.SetActive(false);
+        radialMenuActive = false;
     }
 
     
@@ -46,6 +57,10 @@ public class CanvasScript : MonoBehaviour
         CheckHandlePos();
 
         ProgressSliderSection();
+
+
+        ShowRadialMenu();
+        SelectRadialMenu();
     }
 
     void SetFireSlider()
@@ -101,5 +116,42 @@ public class CanvasScript : MonoBehaviour
             progressBarTimer = progressBarTimerCountdown;
         }
         
+    }
+
+    void ShowRadialMenu()
+    {
+        if(Input.GetKeyDown(KeyCode.F)) 
+        {
+            radialMenuActive = !radialMenuActive;
+            if (radialMenuActive)
+            {
+                radialMenu.SetActive(true);
+            }
+            else
+            {
+                radialMenu.SetActive(false);
+            }
+        }
+    }
+
+    void SelectRadialMenu()
+    {
+        if (radialMenuActive)
+        {
+            Vector2 mousePos = middle.position - Input.mousePosition;
+            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            angle += 180;
+
+            int itemsAngle = 360 / 5;
+            for(int i = 0; i < 360; i += itemsAngle)
+            {
+                if(angle >= i &&  angle < i + itemsAngle)
+                {
+                    select.eulerAngles = new Vector3(0, 0, i);
+
+                }
+            }
+
+        }
     }
 }

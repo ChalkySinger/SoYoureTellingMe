@@ -473,7 +473,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -125, y: -140}
+  m_AnchoredPosition: {x: -108, y: -149}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &80061688
@@ -533,7 +533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &97222214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -783,6 +783,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wok
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e921696bfd92b4a418e6de796b39997a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -807,7 +811,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &270569146
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -933,12 +937,12 @@ GameObject:
   - component: {fileID: 278561745}
   - component: {fileID: 278561748}
   m_Layer: 7
-  m_Name: Wok
+  m_Name: PlayerWok
   m_TagString: wok
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &278561745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,7 +1119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &336586429
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1444,7 +1448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &579870215
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1684,6 +1688,9 @@ MonoBehaviour:
   progressSlider: {fileID: 967651397}
   progressIncreaseVal: 0.5
   progressBarTimerCountdown: 0.25
+  middle: {fileID: 1425936882}
+  select: {fileID: 345683342}
+  radialMenu: {fileID: 151162402}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,7 +2361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 906532667}
   m_Layer: 0
-  m_Name: playerModel
+  m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3036,7 +3043,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 60}
+  m_AnchoredPosition: {x: -175, y: 54}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176417772
@@ -3216,7 +3223,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 125, y: -140}
+  m_AnchoredPosition: {x: 112, y: -140}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1321432782
