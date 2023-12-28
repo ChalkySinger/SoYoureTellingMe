@@ -156,6 +156,14 @@ public class CanvasScript : MonoBehaviour
                 {
                     select.eulerAngles = new Vector3(0, 0, i);
                     selectedText.text = items[currentItem].name;
+
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        Debug.Log(items[currentItem].name + " is selected");
+                        radialMenuActive = false;
+                        radialMenu.SetActive(false);
+                    }
                 }
 
                 currentItem++;
