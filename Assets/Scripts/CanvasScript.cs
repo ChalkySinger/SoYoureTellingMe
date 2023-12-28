@@ -56,14 +56,16 @@ public class CanvasScript : MonoBehaviour
     
     void Update()
     {
-        SetFireSlider();
-        MoveFireLevel();
 
+        //hob fire level
+        MoveFireLevel();
+        SetFireSlider();
         CheckHandlePos();
 
+        //progress bar
         ProgressSliderSection();
 
-
+        //radial menu
         ShowRadialMenu();
         SelectRadialMenu();
     }
@@ -123,6 +125,8 @@ public class CanvasScript : MonoBehaviour
         
     }
 
+
+    //----------show and hide ingredient menu when press F--------
     void ShowRadialMenu()
     {
         if(Input.GetKeyDown(KeyCode.F)) 
@@ -138,30 +142,34 @@ public class CanvasScript : MonoBehaviour
             }
         }
     }
+    //-----------------------------------------------------------
 
+
+    //select item based on mouse around the center (will change for joystick)
+    //when chosen, close menu and say which item was chosen
     void SelectRadialMenu()
     {
         if (radialMenuActive)
         {
-            Vector2 mousePos = middle.position - Input.mousePosition;
+            Vector2 mousePos = middle.position - Input.mousePosition;           //get mouse pos from the middle and use ATan2 for circular movement
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-            angle += 180;
+            angle += 180;                                                       //add 180 to use 0 - 360 rather than -180 - 180
 
             int currentItem = 0;
 
-            int itemsAngle = 360 / 5;
+            int itemsAngle = 360 / 5;   //divide by 5 for the 5 items
             for(int i = 0; i < 360; i += itemsAngle)
             {
                 if(angle >= i &&  angle < i + itemsAngle)
                 {
-                    select.eulerAngles = new Vector3(0, 0, i);
-                    selectedText.text = items[currentItem].name;
+                    select.eulerAngles = new Vector3(0, 0, i);      //rotate selector around z axis
+                    selectedText.text = items[currentItem].name;    //change text to selected item
 
 
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        Debug.Log(items[currentItem].name + " is selected");
-                        radialMenuActive = false;
+                    if (Input.GetMouseButtonDown(0))                            //when item chosen
+                    {   
+                        Debug.Log(items[currentItem].name + " is selected");    //debug
+                        radialMenuActive = false;                               //close menu
                         radialMenu.SetActive(false);
                     }
                 }
