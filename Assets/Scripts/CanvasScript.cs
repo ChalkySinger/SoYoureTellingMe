@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
@@ -38,6 +40,9 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] Transform select;
 
     [SerializeField] GameObject radialMenu;
+
+    [SerializeField] TextMeshProUGUI selectedText;
+    [SerializeField] GameObject[] items;
 
     bool radialMenuActive; 
     void Start() 
@@ -142,14 +147,18 @@ public class CanvasScript : MonoBehaviour
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             angle += 180;
 
+            int currentItem = 0;
+
             int itemsAngle = 360 / 5;
             for(int i = 0; i < 360; i += itemsAngle)
             {
                 if(angle >= i &&  angle < i + itemsAngle)
                 {
                     select.eulerAngles = new Vector3(0, 0, i);
-
+                    selectedText.text = items[currentItem].name;
                 }
+
+                currentItem++;
             }
 
         }
