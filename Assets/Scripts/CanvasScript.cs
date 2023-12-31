@@ -44,6 +44,9 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI selectedText;
     [SerializeField] GameObject[] items;
 
+    [SerializeField] GameObject TextPopUp;
+    [SerializeField] BoxCollider[] cols;
+
     bool radialMenuActive; 
     void Start() 
     {
@@ -169,6 +172,10 @@ public class CanvasScript : MonoBehaviour
                     if (Input.GetMouseButtonDown(0))                            //when item chosen
                     {   
                         Debug.Log(items[currentItem].name + " is selected");    //debug
+
+                        //text pop up here
+                        SpawnTextPopUp(items[currentItem].name);
+
                         radialMenuActive = false;                               //close menu
                         radialMenu.SetActive(false);
                     }
@@ -178,5 +185,20 @@ public class CanvasScript : MonoBehaviour
             }
 
         }
+    }
+
+    void SpawnTextPopUp(string ItemName)
+    {
+        int rand = Random.Range(0, cols.Length);
+        GameObject popUp = Instantiate(TextPopUp, RandomPointInBounds(cols[rand].bounds), TextPopUp.transform.rotation);
+        popUp.GetComponent<TextMeshPro>().text = "+ " + ItemName;
+
+    }
+
+    Vector3 RandomPointInBounds(Bounds bounds)
+    {
+        Vector3 point = new Vector3(Random.Range(bounds.min.x, bounds.max.x), Random.Range(bounds.min.y, bounds.max.y), 4.3f);
+
+        return point;
     }
 }
