@@ -1541,8 +1541,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.697216, y: 2.7772148, z: 0.044109214}
-  m_Center: {x: 2.5754757, y: -0.12336099, z: -0.00000017686503}
+  m_Size: {x: 1.5617905, y: 2.7772148, z: 0.044109214}
+  m_Center: {x: 2.4778557, y: -0.12336099, z: -0.00000017686503}
 --- !u!1 &423115277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 556086453}
   m_Layer: 0
-  m_Name: PopUpArea
+  m_Name: TextPopUpArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3633,8 +3633,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8007545, y: 2.7772148, z: 1}
-  m_Center: {x: 0.055135727, y: -0.12336099, z: -0.00000017748452}
+  m_Size: {x: 1.4154701, y: 2.7772148, z: 1}
+  m_Center: {x: 0.24777794, y: -0.12336099, z: -0.00000017748452}
 --- !u!1 &1425936881
 GameObject:
   m_ObjectHideFlags: 0
