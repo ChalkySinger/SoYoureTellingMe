@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PopUpText : MonoBehaviour
 {
-    float timeToDestroy = .7f;
+    float timeToDestroy = 1f;
 
 
     void Start()
