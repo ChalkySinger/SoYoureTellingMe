@@ -74,7 +74,8 @@ void loop() {
 
 void WriteSerial()
 {
-  sensors_event_t a, g, temp;
+  // Needed for Gyro 
+  sensors_event_t a, g, temp; 
 	mpu.getEvent(&a, &g, &temp);
 
   // read analog X and Y analog values
@@ -180,9 +181,4 @@ void GyroSetup()
 	mpu.setFilterBandwidth(MPU6050_BAND_21_HZ);
 
 	delay(100);
-}
-
-void GyroFunction()
-{
-  
 }
