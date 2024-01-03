@@ -64,6 +64,14 @@ public class Arduino : MonoBehaviour
         }
     }
 
+    public void SendData(string data)
+    {
+        if (serialPort != null && serialPort.IsOpen)
+        {
+            serialPort.Write(data);
+            print(data);
+        }
+    }
 
     /*private void OnApplicationQuit()
     {
