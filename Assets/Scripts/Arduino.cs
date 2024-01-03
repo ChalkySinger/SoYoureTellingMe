@@ -8,7 +8,7 @@ using System.IO.Ports;
 public class Arduino : MonoBehaviour
 {
     [SerializeField] string portName;
-    [SerializeField] int baudRate = 9600;
+    [SerializeField] int baudRate = 115200; // Higer baud rate due to the Gyro
     SerialPort serialPort;
     Thread serialThread;
     bool isRunning = false;
@@ -64,6 +64,7 @@ public class Arduino : MonoBehaviour
         }
     }
 
+    // Can either be called through code or through the event system
     public void SendData(string data)
     {
         if (serialPort != null && serialPort.IsOpen)
