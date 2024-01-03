@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Threading;
 using System.IO.Ports;
+using System.Runtime.Remoting.Messaging;
 
 public class Arduino : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class Arduino : MonoBehaviour
     Thread serialThread;
     bool isRunning = false;
 
+    // Arduino Inputs 
+    string[] inputValues;
+    [Header("Arduino Inputs Values")]
+    [SerializeField] int potentValue;
+    [SerializeField] Vector3 gValues;
+    [SerializeField] Vector2 joySValues;
 
     [field: SerializeField]
 
@@ -72,6 +79,23 @@ public class Arduino : MonoBehaviour
             serialPort.Write(data);
             print(data);
         }
+    }
+
+    // Needs to be called in update 
+    void GetInputs() 
+    {
+        // Splits the CSV from arudino into list elements
+        inputValues = InputText.Split(',');
+
+        // Takes values and applyes them to individual values
+        potentValue = int.Parse(inputValues[0]);
+        
+        gValues.x = float.Parse(inputValues[1]);
+        gValues.y = float.Parse(inputValues[2]);
+        gValues.z = float.Parse(inputValues[3]);
+
+        joySValues.x = int.Parse(inputValues[4]);
+        joySValues.y = int.Parse(inputValues[5]);
     }
 
     /*private void OnApplicationQuit()
