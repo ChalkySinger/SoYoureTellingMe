@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PanScript : MonoBehaviour
 {
+    Rigidbody rb;
+
     [SerializeField] float rotateSpeed = 1f, zSpeed = 0.5f;
 
     float mouseX, mouseY, rotateZ;
@@ -13,12 +15,15 @@ public class PanScript : MonoBehaviour
     {
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
+
+        //rb = GetComponentInChildren<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
 
     void Update()
     {
-        //--------------Pan Test Rotation with Mouse------------
+        //--------------Set Pan Rotation with Mouse-------------
         mouseX = Input.GetAxis("Mouse X") * rotateSpeed;
         mouseY = Input.GetAxis("Mouse Y") * rotateSpeed;
         if(Input.GetMouseButton(0))
@@ -33,7 +38,14 @@ public class PanScript : MonoBehaviour
         {
             rotateZ = 0;
         }
-        transform.Rotate(mouseY, rotateZ, mouseX);
+        //transform.Rotate(mouseY, rotateZ, mouseX);
         //-------------------------------------------------------
+
+
+        //-------------Pan rotate using rb------------------------
+        Vector3 rotVector = new Vector3(-mouseY, rotateZ, mouseX);
+        Quaternion rotQuat = Quaternion.Euler(rotVector * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * rotQuat);
+        //--------------------------------------------------------
     }
 }
