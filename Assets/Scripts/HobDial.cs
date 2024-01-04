@@ -1,9 +1,12 @@
+using Palmmedia.ReportGenerator.Core.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HobDial : MonoBehaviour
 {
+    [SerializeField] Arduino arduino;
+
 
     [SerializeField] float turnSpeed = 1f;
     [SerializeField] float fireLevel = 1f;
@@ -28,8 +31,19 @@ public class HobDial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
+        string stringVal = arduino.InputText;
+        int potVal = int.Parse(stringVal);
+        Debug.Log("value: " + potVal);
+
+        float mappedPotVal = MapValue(potVal, 2f, 886f, -30f, 210f);
+
+        DialVal = potVal;
+
+        //-----------------------------------------------
 
 
+        //---------Keyboard dial--------------------
         if (Input.GetKey(KeyCode.Q))
         {
             DialVal -= Time.deltaTime * turnSpeed;
@@ -39,7 +53,7 @@ public class HobDial : MonoBehaviour
         {
             DialVal += Time.deltaTime * turnSpeed;
         }
-  
+        //-------------------------------------------
 
         DialVal = Mathf.Clamp(DialVal, -30f, 210f);
 
@@ -49,7 +63,7 @@ public class HobDial : MonoBehaviour
 
         //transform.Rotate(0, DialVal, 0);
 
-        fireLevel = MapValue(DialVal, -30f, 210f, 1f, 100f);
+        fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
         //Debug.Log("Fire Level: " + fireLevel);
 
 

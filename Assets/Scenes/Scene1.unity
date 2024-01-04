@@ -676,7 +676,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &68823792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -689,12 +689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809b10b21a780ff48b6ce7a430215227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portName: COM3
-  baudRate: 9600
+  portName: COM5
+  baudRate: 115200
   potentValue: 0
   gValues: {x: 0, y: 0, z: 0}
   joySValues: {x: 0, y: 0}
-  <InputText>k__BackingField: 40
+  <InputText>k__BackingField: 0
 --- !u!4 &68823793
 Transform:
   m_ObjectHideFlags: 0
@@ -11706,6 +11706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabf74934a6c3f845a058d27937fb61e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arduino: {fileID: 68823792}
   turnSpeed: 80
   fireLevel: 1
   fireEmmisionVal: 3

@@ -98,16 +98,16 @@ public class Arduino : MonoBehaviour
         joySValues.y = int.Parse(inputValues[5]);
     }
 
-    /*private void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         isRunning = false;
-        if(serialPort != null && serialThread.IsAlive)
+        if (serialPort != null && serialThread.IsAlive)
         {
             serialThread.Join();
         }
-        if(serialPort == null && serialPort.IsOpen)
+        if (serialPort == null && serialPort.IsOpen)
         {
             serialPort.Close();
         }
-    }*/
+    }
 }
