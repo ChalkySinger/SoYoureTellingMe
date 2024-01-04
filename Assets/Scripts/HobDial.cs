@@ -62,7 +62,7 @@ public class HobDial : MonoBehaviour
         transform.localEulerAngles = rot;
 
         //transform.Rotate(0, DialVal, 0);
-
+        
         fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
         //Debug.Log("Fire Level: " + fireLevel);
 
