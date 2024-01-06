@@ -19,7 +19,8 @@ public class Arduino : MonoBehaviour
     [Header("Arduino Inputs Values")]
     [SerializeField] int potentValue;
     [SerializeField] Vector3 gValues;
-    [SerializeField] Vector2 joySValues;
+    [SerializeField] Vector3 joySValues;
+    
 
     [field: SerializeField]
 
@@ -94,7 +95,10 @@ public class Arduino : MonoBehaviour
         gValues.y = float.Parse(inputValues[2]);
         gValues.z = float.Parse(inputValues[3]);
 
+        // These are the joysticks x and y values 
         joySValues.x = int.Parse(inputValues[4]);
+        joySValues.z = int.Parse(inputValues[6]); 
+        // This is the joystick button value
         joySValues.y = int.Parse(inputValues[5]);
     }
 
