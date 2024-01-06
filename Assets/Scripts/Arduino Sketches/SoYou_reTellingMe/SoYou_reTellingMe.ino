@@ -95,7 +95,9 @@ void WriteSerial()
   gYValue = g.gyro.y;
   gZValue = g.gyro.z;
 
-  sendData = String(potentValue) + "," + String(gXValue) + "," + String(gYValue) + "," + String(gYValue) + "," + String(joyXvalue) + "," + String(joyYvalue) + "," + String(joyBvalue);  
+  sendData = String(potentValue) + "," + 
+  String(gXValue) + "," + String(gYValue) + "," + String(gZValue) + "," + 
+  String(joyXvalue) + "," + String(joyYvalue) + "," + String(joyBvalue);  
   Serial.println(sendData);
 
 
