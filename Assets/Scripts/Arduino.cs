@@ -97,9 +97,9 @@ public class Arduino : MonoBehaviour
 
         // These are the joysticks x and y values 
         joySValues.x = int.Parse(inputValues[4]);
-        joySValues.z = int.Parse(inputValues[6]); 
-        // This is the joystick button value
         joySValues.y = int.Parse(inputValues[5]);
+        // This is the joystick button value
+        joySValues.z = int.Parse(inputValues[6]); 
     }
 
     private void OnApplicationQuit()
