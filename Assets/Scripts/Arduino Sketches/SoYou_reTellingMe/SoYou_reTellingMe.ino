@@ -59,6 +59,8 @@ void setup() {
 
   pinMode(MOTOR_PIN, OUTPUT);
 
+  button.setDebounceTime(50);
+
   // // Turns off all the leds at first
   // digitalWrite(LED1_PIN, LOW); 
   // digitalWrite(LED2_PIN, LOW); 
@@ -70,7 +72,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  
+  button.loop();
   LedsWithPotent();
   WriteSerial();
 
@@ -85,12 +87,15 @@ void WriteSerial()
   // read analog X and Y analog values
   joyXvalue = analogRead(VRX_PIN);
   joyYvalue = analogRead(VRY_PIN);
+  // Gets the button state of the button on joystick
+  // 0 is on 1 is off (according to testing)
+  joyBvalue = button.getState();
 
   gXValue = g.gyro.x;
   gYValue = g.gyro.y;
   gZValue = g.gyro.z;
 
-  sendData = String(potentValue) + "," + String(gXValue) + "," + String(gYValue) + "," + String(gYValue) + "," + String(joyXvalue) + "," + String(joyYvalue);  
+  sendData = String(potentValue) + "," + String(gXValue) + "," + String(gYValue) + "," + String(gYValue) + "," + String(joyXvalue) + "," + String(joyYvalue) + "," + String(joyBvalue);  
   Serial.println(sendData);
 
 
