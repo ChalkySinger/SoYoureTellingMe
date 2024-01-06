@@ -1,21 +1,23 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
+#include <ezButton.h>
 
 
 //---------Analouge-Inputs---------//
 Adafruit_MPU6050 mpu; // This is variable for the Gyro/Accel
-#define VRX_PIN  A2 // Arduino pin connected to VRX pin
-#define VRY_PIN  A1 // Arduino pin connected to VRY pin
+#define VRX_PIN  A2 // Joystick VRX pin
+#define VRY_PIN  A1 // Joystick VRY pin
+#define JOY_BTN_PIN 2  // Pin for Joystick Button (R3)
 #define POTENTIOMETER_PIN A0
 //-------------------------------//
 
 
 //---------Digital-Inputs---------//
-#define LED1_PIN 10
-#define LED2_PIN 11
-#define LED3_PIN 6
-#define LED4_PIN 3
+#define LED1_PIN 13
+#define LED2_PIN 12
+#define LED3_PIN 11
+#define LED4_PIN 10
 
 #define MOTOR_PIN 4
 //-------------------------------//
@@ -26,6 +28,8 @@ String sendData;
 //---------Joystick-Inputs---------//
 int joyXvalue = 0; // To store value of the joystick's X axis
 int joyYvalue = 0; // To store value of the joystick's Y axis
+int joyBValue; // Stores joystick button value 0 is on 1 is off (according to testing)
+ezButton button(JOY_BTN_PIN);
 //--------------------------------//
 
 //---------Gyro-Inputs---------//
