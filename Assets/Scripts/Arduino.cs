@@ -35,6 +35,17 @@ public class Arduino : MonoBehaviour
         StartThread();
     }
 
+    private void Update()
+    {
+        //GetInputs();
+        //test
+        //inputValues = InputText.Split(',');
+        //Debug.Log("item 1: " + inputValues[0] + " 2: " + inputValues[1] + " 3: " + inputValues[2]);
+        //Debug.Log("uhh: " + inputValues.Length);
+        /*gValues.x = float.Parse(inputValues[0]);
+        gValues.y = float.Parse(inputValues[1]);
+        gValues.z = float.Parse(inputValues[2]);*/
+    }
 
 
     void OpenSerial()
@@ -116,7 +127,7 @@ public class Arduino : MonoBehaviour
     }
 
 
-#   //To send vals to other scripts
+    //To send vals to other scripts
     public int GetPotVal()
     {
         return potentValue;
@@ -129,7 +140,10 @@ public class Arduino : MonoBehaviour
 
     public Vector3 GetJoyVal()
     {
-        return joySValues;
+        //TEST CHANGE THE INDEX NUMBERS
+        inputValues = InputText.Split(',');
+        Vector3 sendVals = new Vector3(float.Parse(inputValues[0]), float.Parse(inputValues[1]), float.Parse(inputValues[2]));
+        return sendVals;
     }
 
     //------------------------------

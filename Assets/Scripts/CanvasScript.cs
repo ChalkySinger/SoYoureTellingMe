@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
 
 public class CanvasScript : MonoBehaviour
 {
+    [Header("Arduino")]
+    [SerializeField] Arduino arduino;
+    Vector3 joystickVal;
+    bool joystickButton = false;
+    bool buttonWait;
 
     [Header ("Fire Slider Dial")]
     [SerializeField] private Slider fireLevelSlider;
@@ -59,7 +65,6 @@ public class CanvasScript : MonoBehaviour
     
     void Update()
     {
-
         //hob fire level
         MoveFireLevel();
         SetFireSlider();
@@ -71,6 +76,10 @@ public class CanvasScript : MonoBehaviour
         //radial menu
         ShowRadialMenu();
         SelectRadialMenu();
+
+
+        Joystick();
+
     }
 
     void SetFireSlider()
@@ -132,7 +141,19 @@ public class CanvasScript : MonoBehaviour
     //----------show and hide ingredient menu when press F--------
     void ShowRadialMenu()
     {
-        if(Input.GetKeyDown(KeyCode.F)) 
+        /*if(Input.GetKeyDown(KeyCode.F)) 
+        {
+            radialMenuActive = !radialMenuActive;
+            if (radialMenuActive)
+            {
+                radialMenu.SetActive(true);
+            }
+            else
+            {
+                radialMenu.SetActive(false);
+            }
+        }*/
+        if (joystickVal.z == 0)
         {
             radialMenuActive = !radialMenuActive;
             if (radialMenuActive)
@@ -200,5 +221,28 @@ public class CanvasScript : MonoBehaviour
         Vector3 point = new Vector3(Random.Range(bounds.min.x, bounds.max.x), Random.Range(bounds.min.y, bounds.max.y), 4.3f);
 
         return point;
+    }
+
+    void Joystick()
+    {
+        joystickVal = arduino.GetJoyVal();
+
+        Debug.Log("X: " + joystickVal.x + " Y: " + joystickVal.y + " Button: " + joystickVal.z);
+
+        if(joystickVal.z == 0)
+        {
+            if(!buttonWait)
+            {
+                joystickButton = !joystickButton;
+                StartCoroutine(ButtonWait());
+            }
+        }
+    }
+
+    IEnumerator ButtonWait()
+    {
+        yield return new WaitForSeconds(0.3f);
+        buttonWait = false;
+
     }
 }

@@ -2,6 +2,7 @@ using Palmmedia.ReportGenerator.Core.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HobDial : MonoBehaviour
 {
@@ -28,8 +29,12 @@ public class HobDial : MonoBehaviour
     void Update()
     {
         //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
-        string stringVal = arduino.InputText;
-        potVal = int.Parse(stringVal);
+        /*string stringVal = arduino.InputText;
+        potVal = int.Parse(stringVal);*/
+        
+
+        potVal = arduino.GetPotVal();
+
         Debug.Log("value: " + potVal);
 
         float mappedPotVal = MapValue(potVal, 2f, 886f, -30f, 210f);
