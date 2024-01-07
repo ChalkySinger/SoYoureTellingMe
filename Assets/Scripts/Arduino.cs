@@ -114,4 +114,23 @@ public class Arduino : MonoBehaviour
             serialPort.Close();
         }
     }
+
+
+#   //To send vals to other scripts
+    public int GetPotVal()
+    {
+        return potentValue;
+    }
+
+    public Vector3 GetGyroVal()
+    {
+        return gValues;
+    }
+
+    public Vector3 GetJoyVal()
+    {
+        return joySValues;
+    }
+
+    //------------------------------
 }
