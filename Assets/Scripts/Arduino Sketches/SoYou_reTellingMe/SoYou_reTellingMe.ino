@@ -26,9 +26,9 @@ String sendData;
 
 
 //---------Joystick-Inputs---------//
-int joyXvalue = 0; // To store value of the joystick's X axis
-int joyYvalue = 0; // To store value of the joystick's Y axis
-int joyBValue; // Stores joystick button value 0 is on 1 is off (according to testing)
+int joyXValue = 0; // To store value of the joystick's X axis
+int joyYValue = 0; // To store value of the joystick's Y axis
+int joyBValue = 0; // Stores joystick button value 0 is on 1 is off (according to testing)
 ezButton button(JOY_BTN_PIN);
 //--------------------------------//
 
@@ -85,11 +85,11 @@ void WriteSerial()
 	mpu.getEvent(&a, &g, &temp);
 
   // read analog X and Y analog values
-  joyXvalue = analogRead(VRX_PIN);
-  joyYvalue = analogRead(VRY_PIN);
+  joyXValue = analogRead(VRX_PIN);
+  joyYValue = analogRead(VRY_PIN);
   // Gets the button state of the button on joystick
   // 0 is on 1 is off (according to testing)
-  joyBvalue = button.getState();
+  joyBValue = button.getState();
 
   gXValue = g.gyro.x;
   gYValue = g.gyro.y;
@@ -97,7 +97,7 @@ void WriteSerial()
 
   sendData = String(potentValue) + "," + 
   String(gXValue) + "," + String(gYValue) + "," + String(gZValue) + "," + 
-  String(joyXvalue) + "," + String(joyYvalue) + "," + String(joyBvalue);  
+  String(joyXValue) + "," + String(joyYValue) + "," + String(joyBValue);  
   Serial.println(sendData);
 
 
