@@ -141,7 +141,7 @@ public class CanvasScript : MonoBehaviour
     //----------show and hide ingredient menu when press F--------
     void ShowRadialMenu()
     {
-        /*if(Input.GetKeyDown(KeyCode.F)) 
+        if (Input.GetKeyDown(KeyCode.F))
         {
             radialMenuActive = !radialMenuActive;
             if (radialMenuActive)
@@ -152,8 +152,10 @@ public class CanvasScript : MonoBehaviour
             {
                 radialMenu.SetActive(false);
             }
-        }*/
+        }
+
         if (joystickVal.z == 0)
+        //if(joystickButton)
         {
             radialMenuActive = !radialMenuActive;
             if (radialMenuActive)
@@ -229,20 +231,40 @@ public class CanvasScript : MonoBehaviour
 
         Debug.Log("X: " + joystickVal.x + " Y: " + joystickVal.y + " Button: " + joystickVal.z);
 
-        if(joystickVal.z == 0)
+        /*if(joystickVal.z == 0)
         {
             if(!buttonWait)
             {
-                joystickButton = !joystickButton;
+                buttonWait = true;
                 StartCoroutine(ButtonWait());
             }
         }
+        */
+        
+
+        /*float timer = 0.5f;
+
+        if(joystickVal.z == 0)
+        {
+            timer -= Time.deltaTime;
+            if(timer <= 0f)
+            {
+                joystickButton = !joystickButton;
+
+                timer = 0.5f;
+            }
+
+
+        }
+
+        Debug.Log("pressed: " + joystickButton);*/
     }
 
     IEnumerator ButtonWait()
     {
-        yield return new WaitForSeconds(0.3f);
-        buttonWait = false;
+        yield return new WaitForSeconds(1f);
 
+        buttonWait = false;
+        joystickButton = !joystickButton;
     }
 }
