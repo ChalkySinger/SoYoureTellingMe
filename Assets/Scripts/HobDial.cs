@@ -8,43 +8,37 @@ public class HobDial : MonoBehaviour
     [SerializeField] Arduino arduino;
 
 
-    [SerializeField] float turnSpeed = 1f;
     [SerializeField] float fireLevel = 1f;
     [SerializeField] float fireEmmisionVal = 3f;
+    int potVal;
 
 
-    [Range(-120f,120f)] float DialVal = -30;
+    //[Range(-120f,120f)] float DialVal = -30;
 
-    //private Vector3 PosIn = new Vector3(0.7f,2.1f,2.2f);
-    //private Quaternion RotIn = new Quaternion(0, -120, 0, 90);
 
     [SerializeField] ParticleSystem FireSystem;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        //transform.Rotate(0, -120f, 0);
 
-        //transform.SetPositionAndRotation(PosIn, RotIn);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
         string stringVal = arduino.InputText;
-        int potVal = int.Parse(stringVal);
+        potVal = int.Parse(stringVal);
         Debug.Log("value: " + potVal);
 
         float mappedPotVal = MapValue(potVal, 2f, 886f, -30f, 210f);
-
-        DialVal = potVal;
 
         //-----------------------------------------------
 
 
         //---------Keyboard dial--------------------
-        if (Input.GetKey(KeyCode.Q))
+        /*if (Input.GetKey(KeyCode.Q))
         {
             DialVal -= Time.deltaTime * turnSpeed;
             
@@ -52,20 +46,15 @@ public class HobDial : MonoBehaviour
         else if (Input.GetKey(KeyCode.E))
         {
             DialVal += Time.deltaTime * turnSpeed;
-        }
+        }*/
         //-------------------------------------------
 
-        DialVal = Mathf.Clamp(DialVal, -30f, 210f);
 
         Vector3 rot = transform.localEulerAngles;
-        rot.z = DialVal;
+        rot.z = MapValue(potVal, 1f, 886f, -30f, 210f); ;
         transform.localEulerAngles = rot;
-
-        //transform.Rotate(0, DialVal, 0);
         
         fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
-        //Debug.Log("Fire Level: " + fireLevel);
-
 
         FireParticleUpdate();
      
