@@ -2630,9 +2630,9 @@ MonoBehaviour:
   radialMenu: {fileID: 151162402}
   selectedText: {fileID: 786917467}
   items:
-  - {fileID: 1542679277}
-  - {fileID: 1752249756}
   - {fileID: 1176417770}
+  - {fileID: 1752249756}
+  - {fileID: 1542679277}
   - {fileID: 80061686}
   - {fileID: 1321432780}
   TextPopUp: {fileID: 1515771424617849398, guid: 260310adc2132854bbd7abe792a71ac2, type: 3}
@@ -4050,7 +4050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175, y: 54}
+  m_AnchoredPosition: {x: 175, y: 54}
   m_SizeDelta: {x: 120.0992, y: 120.0992}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176417772
@@ -5212,7 +5212,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 175, y: 60}
+  m_AnchoredPosition: {x: -175, y: 60}
   m_SizeDelta: {x: 124.3567, y: 124.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1542679279

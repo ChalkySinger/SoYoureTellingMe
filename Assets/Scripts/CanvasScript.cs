@@ -261,7 +261,7 @@ public class CanvasScript : MonoBehaviour
         }
         Debug.Log("pressed: " + joystickButton);*/
 
-        //x and y
+        //x and y mapped to window size
         joyX = MapValue(joystickVal.x, 0f, 1023f, 0f, 1920f);
         joyY = MapValue(joystickVal.y, 0f, 1023f, 1080f, 0f);
         joystickVector = new Vector2 (joyX, joyY);
