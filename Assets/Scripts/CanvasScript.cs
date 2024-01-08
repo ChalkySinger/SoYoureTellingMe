@@ -15,6 +15,9 @@ public class CanvasScript : MonoBehaviour
     bool joystickButton = false;
     bool buttonWait;
 
+    float joyX, joyY;
+    Vector3 joystickVector;
+
     [Header ("Fire Slider Dial")]
     [SerializeField] private Slider fireLevelSlider;
 
@@ -177,7 +180,7 @@ public class CanvasScript : MonoBehaviour
     {
         if (radialMenuActive)
         {
-            Vector2 mousePos = middle.position - Input.mousePosition;           //get mouse pos from the middle and use ATan2 for circular movement
+            Vector2 mousePos = middle.position - /*Input.mousePosition*/ joystickVector;           //get mouse pos from the middle and use ATan2 for circular movement
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             angle += 180;                                                       //add 180 to use 0 - 360 rather than -180 - 180
 
@@ -231,16 +234,16 @@ public class CanvasScript : MonoBehaviour
 
         Debug.Log("X: " + joystickVal.x + " Y: " + joystickVal.y + " Button: " + joystickVal.z);
 
-        /*if(joystickVal.z == 0)
+        //button
+        if (joystickVal.z == 0)
         {
-            if(!buttonWait)
+            if (!buttonWait)
             {
                 buttonWait = true;
                 StartCoroutine(ButtonWait());
             }
+
         }
-        */
-        
 
         /*float timer = 0.5f;
 
@@ -256,15 +259,29 @@ public class CanvasScript : MonoBehaviour
 
 
         }
-
         Debug.Log("pressed: " + joystickButton);*/
+
+        //x and y
+        joyX = MapValue(joystickVal.x, 0f, 1023f, 0f, 1920f);
+        joyY = MapValue(joystickVal.y, 0f, 1023f, 1080f, 0f);
+        joystickVector = new Vector2 (joyX, joyY);
     }
 
     IEnumerator ButtonWait()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.2f);
 
         buttonWait = false;
         joystickButton = !joystickButton;
+
+    }
+
+
+    float MapValue(float InputVal, float min1, float max1, float min2, float max2)
+    {
+        InputVal = Mathf.Clamp(InputVal, min1, max1);
+        float mappedVal = min2 + (InputVal - min1) * (max2 - min2) / (max1 - min1);
+
+        return mappedVal;
     }
 }
