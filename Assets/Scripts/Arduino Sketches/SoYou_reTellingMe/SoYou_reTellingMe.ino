@@ -1,14 +1,13 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
-#include <ezButton.h>
 
 
 //---------Analouge-Inputs---------//
 Adafruit_MPU6050 mpu; // This is variable for the Gyro/Accel
 #define VRX_PIN  A2 // Joystick VRX pin
 #define VRY_PIN  A1 // Joystick VRY pin
-#define JOY_BTN_PIN 2  // Pin for Joystick Button (R3)
+#define SW_PIN 2  // Pin for Joystick Button (R3)
 #define POTENTIOMETER_PIN A0
 //-------------------------------//
 
@@ -19,7 +18,7 @@ Adafruit_MPU6050 mpu; // This is variable for the Gyro/Accel
 #define LED3_PIN 11
 #define LED4_PIN 10
 
-#define MOTOR_PIN 4
+#define MOTOR_PIN 3
 //-------------------------------//
 
 String sendData;
@@ -29,7 +28,6 @@ String sendData;
 int joyXValue = 0; // To store value of the joystick's X axis
 int joyYValue = 0; // To store value of the joystick's Y axis
 int joyBValue = 0; // Stores joystick button value 0 is on 1 is off (according to testing)
-ezButton button(JOY_BTN_PIN);
 //--------------------------------//
 
 //---------Gyro-Inputs---------//
@@ -41,7 +39,6 @@ float gZValue = 0;
 int LED_AMOUNT = 5;
 
 int potentValue;
-
 
 
 
@@ -59,7 +56,7 @@ void setup() {
 
   pinMode(MOTOR_PIN, OUTPUT);
 
-  button.setDebounceTime(50);
+  digitalWrite(2,HIGH);             //joystick button
 
   // // Turns off all the leds at first
   // digitalWrite(LED1_PIN, LOW); 
@@ -72,7 +69,6 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  button.loop();
   LedsWithPotent();
   WriteSerial();
 
@@ -89,7 +85,7 @@ void WriteSerial()
   joyYValue = analogRead(VRY_PIN);
   // Gets the button state of the button on joystick
   // 0 is on 1 is off (according to testing)
-  joyBValue = button.getState();
+  joyBValue = digitalRead(2);
 
   gXValue = g.gyro.x;
   gYValue = g.gyro.y;
