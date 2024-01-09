@@ -11,12 +11,13 @@ public class CanvasScript : MonoBehaviour
 {
     [Header("Arduino")]
     [SerializeField] Arduino arduino;
-    Vector3 joystickVal;
-    bool joystickButton = false;
-    bool buttonWait;
+    //----------joystick----------
+    //Vector3 joystickVal;
+    bool joystickButtonDown = false, buttonHeld = false, buttonWasPressed = false, selectIngredient = false, executeSelection = false;
 
     float joyX, joyY;
-    Vector3 joystickVector;
+    Vector3 mappedJoystickVector;
+    //----------------------------
 
     [Header ("Fire Slider Dial")]
     [SerializeField] private Slider fireLevelSlider;
@@ -63,6 +64,8 @@ public class CanvasScript : MonoBehaviour
 
         radialMenu.SetActive(false);
         radialMenuActive = false;
+
+        joystickButtonDown = false;
     }
 
     
@@ -81,8 +84,8 @@ public class CanvasScript : MonoBehaviour
         SelectRadialMenu();
 
 
-        Joystick();
-
+        JoystickInputs();
+        UseJoyStick();
     }
 
     void SetFireSlider()
@@ -157,19 +160,16 @@ public class CanvasScript : MonoBehaviour
             }
         }
 
-        if (joystickVal.z == 0)
-        //if(joystickButton)
+
+        if(radialMenuActive)
         {
-            radialMenuActive = !radialMenuActive;
-            if (radialMenuActive)
-            {
-                radialMenu.SetActive(true);
-            }
-            else
-            {
-                radialMenu.SetActive(false);
-            }
+            radialMenu.SetActive(true);
         }
+        else
+        {
+            radialMenu.SetActive(false);
+        }
+
     }
     //-----------------------------------------------------------
 
@@ -180,7 +180,7 @@ public class CanvasScript : MonoBehaviour
     {
         if (radialMenuActive)
         {
-            Vector2 mousePos = middle.position - /*Input.mousePosition*/ joystickVector;           //get mouse pos from the middle and use ATan2 for circular movement
+            Vector2 mousePos = middle.position - /*Input.mousePosition*/ mappedJoystickVector;           //get pos from the middle and use ATan2 for circular movement
             float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
             angle += 180;                                                       //add 180 to use 0 - 360 rather than -180 - 180
 
@@ -194,17 +194,19 @@ public class CanvasScript : MonoBehaviour
                     select.eulerAngles = new Vector3(0, 0, i);      //rotate selector around z axis
                     selectedText.text = items[currentItem].name;    //change text to selected item
 
+                    if (selectIngredient)           //when item chosen
+                    {
+                        selectIngredient = false;   //stop loop
 
-                    if (Input.GetMouseButtonDown(0))                            //when item chosen
-                    {   
-                        Debug.Log(items[currentItem].name + " is selected");    //debug
+                        SpawnTextPopUp(items[currentItem].name);    //show which item was chosen
 
-                        //text pop up here
-                        SpawnTextPopUp(items[currentItem].name);
+                        //-------INSTANTIATE INGREDIENT CODE HERE------
 
-                        radialMenuActive = false;                               //close menu
-                        radialMenu.SetActive(false);
+
+
+                        //---------------------------------------------
                     }
+                    
                 }
 
                 currentItem++;
@@ -228,51 +230,64 @@ public class CanvasScript : MonoBehaviour
         return point;
     }
 
-    void Joystick()
+    void JoystickInputs()
     {
-        joystickVal = arduino.GetJoyVal();
+        //joystickVal = arduino.GetJoyVal();
 
-        Debug.Log("X: " + joystickVal.x + " Y: " + joystickVal.y + " Button: " + joystickVal.z);
+        Debug.Log("X: " + arduino.GetJoyVal().x + " Y: " + arduino.GetJoyVal().y + " Button: " + arduino.GetJoyVal().z);
 
-        //button
-        if (joystickVal.z == 0)
+        if(arduino.GetJoyVal().z == 0)
         {
-            if (!buttonWait)
-            {
-                buttonWait = true;
-                StartCoroutine(ButtonWait());
-            }
+            joystickButtonDown = true;
+
+        }
+        else
+        {
+            joystickButtonDown = false;
 
         }
 
-        /*float timer = 0.5f;
-
-        if(joystickVal.z == 0)
-        {
-            timer -= Time.deltaTime;
-            if(timer <= 0f)
-            {
-                joystickButton = !joystickButton;
-
-                timer = 0.5f;
-            }
-
-
-        }
-        Debug.Log("pressed: " + joystickButton);*/
 
         //x and y mapped to window size
-        joyX = MapValue(joystickVal.x, 0f, 1023f, 0f, 1920f);
-        joyY = MapValue(joystickVal.y, 0f, 1023f, 1080f, 0f);
-        joystickVector = new Vector2 (joyX, joyY);
+        joyX = MapValue(arduino.GetJoyVal().x, 0f, 1023f, 0f, 1920f);
+        joyY = MapValue(arduino.GetJoyVal().y, 0f, 1023f, 1080f, 0f);
+        mappedJoystickVector = new Vector2 (joyX, joyY);
     }
 
-    IEnumerator ButtonWait()
+    //this code will check when the button is held to show the menu, then when button is released, the item is selected and then the menu is closed
+    void UseJoyStick()
     {
-        yield return new WaitForSeconds(.2f);
+        if (joystickButtonDown && !buttonWasPressed)  //button is down and has not been released
+        {
+            radialMenuActive = true;    //show ingredient menu
 
-        buttonWait = false;
-        joystickButton = !joystickButton;
+            buttonWasPressed = true;
+            buttonHeld = true;
+            executeSelection = false;   //ingredient has not been selected so do not execute selection
+        }
+        else if(buttonWasPressed && joystickButtonDown)   //button was pressed down and still is
+        {
+            buttonHeld = true;  //button is held
+
+        }
+        else if(buttonWasPressed && !joystickButtonDown && buttonHeld && !executeSelection)     //button was pressed down, and now isnt pressed
+        {                                                                                       //also the selection has not happened
+            buttonWasPressed = false;
+            buttonHeld = false;
+
+            executeSelection = true;    //allow selection to happen
+            selectIngredient = true;    //this goes to the selection on the radial menu to say the button has been released 
+
+        }
+        else if (!joystickButtonDown)   //button is not held down
+        {
+            buttonWasPressed = false;
+            buttonHeld = false;
+            if(executeSelection)            //selection has now happened so...
+            {
+                radialMenuActive = false;   //turn the ingredient menu off
+            }
+        }
 
     }
 
@@ -284,4 +299,7 @@ public class CanvasScript : MonoBehaviour
 
         return mappedVal;
     }
+
+
+
 }
