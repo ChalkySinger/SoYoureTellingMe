@@ -22,7 +22,7 @@ public class SoundFXManager : MonoBehaviour
 
         audioSource.clip = audioClip;
 
-        audioSource.volume = PlayerPrefs.GetFloat("VolumeValue"); ;
+        audioSource.volume = PlayerPrefs.GetFloat("VolumeValue"); 
 
         audioSource.Play();
 
