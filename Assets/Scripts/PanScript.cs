@@ -58,7 +58,7 @@ public class PanScript : MonoBehaviour
         gyro.y = arduino.GetGyroVal().z;
         gyro.z = arduino.GetGyroVal().y;
 
-        Quaternion rotQuat = Quaternion.Euler(gyro * Time.fixedDeltaTime * gyroMult);
+        Quaternion rotQuat = Quaternion.Euler(-gyro * Time.fixedDeltaTime * gyroMult);
         rb.MoveRotation(rb.rotation * rotQuat);
 
 

@@ -1748,7 +1748,7 @@ MonoBehaviour:
   rotateSpeed: 80
   zSpeed: 15
   arduino: {fileID: 68823792}
-  gyroMult: 5
+  gyroMult: 50
 --- !u!4 &278561746
 Transform:
   m_ObjectHideFlags: 0
