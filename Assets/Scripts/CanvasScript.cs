@@ -58,7 +58,13 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] GameObject TextPopUp;
     [SerializeField] BoxCollider[] cols;
 
-    bool radialMenuActive; 
+    bool radialMenuActive;
+
+
+    [Header("Ingredient Spawn")]
+    [SerializeField] Transform spawnPoint;
+    [SerializeField] GameObject[] ingredients;
+
     void Start() 
     {
         fireLevelSlider.value = 1;
