@@ -65,6 +65,9 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] Transform spawnPoint;
     [SerializeField] GameObject[] ingredients;
 
+    bool spawnIngredient;
+    string chosenItem;
+
     void Start() 
     {
         fireLevelSlider.value = 1;
@@ -95,6 +98,19 @@ public class CanvasScript : MonoBehaviour
         UseJoyStick();
 
         ToMainMenu();
+
+
+        //to instantiate ingredients
+        if(spawnIngredient)
+        {
+            //shrimp for testing
+            if(chosenItem == "Shrimp")
+            {
+                SpawnIngredients(3, 8, ingredients[0]);
+            }
+            
+            spawnIngredient = false;
+        }
     }
 
     void SetFireSlider()
@@ -210,8 +226,12 @@ public class CanvasScript : MonoBehaviour
                         SpawnTextPopUp(items[currentItem].name);    //show which item was chosen
 
                         //-------INSTANTIATE INGREDIENT CODE HERE------
+                        Debug.Log("spawn ingredient");
 
 
+                        chosenItem = items[currentItem].name;
+                        spawnIngredient = true;
+                        
 
                         //---------------------------------------------
                     }
@@ -315,6 +335,21 @@ public class CanvasScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene(0);
+        }
+    }
+
+    void SpawnIngredients(int minAmount, int maxAmount, GameObject ingredient)
+    {
+        int randAmount = Random.Range(minAmount, maxAmount);
+
+        for(int i = 0; i < randAmount; i++)
+        {
+
+            Instantiate(ingredient, spawnPoint.position, Random.rotation);
+
+
+
+
         }
     }
 
