@@ -251,6 +251,7 @@ public class CanvasScript : MonoBehaviour
         //x and y mapped to window size
         joyX = MapValue(arduino.GetJoyVal().x, 0f, 1023f, 0f, 1920f);
         joyY = MapValue(arduino.GetJoyVal().y, 0f, 1023f, 1080f, 0f);
+
         mappedJoystickVector = new Vector2 (joyX, joyY);
     }
 

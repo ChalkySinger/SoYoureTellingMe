@@ -37,7 +37,8 @@ public class Arduino : MonoBehaviour
 
     private void Update()
     {
-        //GetInputs();
+        GetInputs();
+
         //test
         //inputValues = InputText.Split(',');
         //Debug.Log("item 1: " + inputValues[0] + " 2: " + inputValues[1] + " 3: " + inputValues[2]);
@@ -141,9 +142,11 @@ public class Arduino : MonoBehaviour
     public Vector3 GetJoyVal()
     {
         //TEST CHANGE THE INDEX NUMBERS
-        inputValues = InputText.Split(',');
+        /*inputValues = InputText.Split(',');
         Vector3 sendVals = new Vector3(float.Parse(inputValues[0]), float.Parse(inputValues[1]), float.Parse(inputValues[2]));
-        return sendVals;
+        return sendVals;*/
+
+        return joySValues;
     }
 
     //------------------------------

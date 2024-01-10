@@ -38,7 +38,8 @@ float gZValue = 0;
 
 int LED_AMOUNT = 5;
 
-int potentValue;
+//int potentValue;
+int mappedPotVal;
 
 
 
@@ -91,7 +92,7 @@ void WriteSerial()
   gYValue = g.gyro.y;
   gZValue = g.gyro.z;
 
-  sendData = String(potentValue) + "," + 
+  sendData = String(mappedPotVal) + "," + 
   String(gXValue) + "," + String(gYValue) + "," + String(gZValue) + "," + 
   String(joyXValue) + "," + String(joyYValue) + "," + String(joyBValue);  
   Serial.println(sendData);
@@ -110,7 +111,8 @@ void ReadSerial()
 // No interaction between Unity and LEDs
 void LedsWithPotent()
 {
-  potentValue = analogRead(POTENTIOMETER_PIN);
+  int potentValue = analogRead(POTENTIOMETER_PIN);
+  mappedPotVal = (902)-analogRead(POTENTIOMETER_PIN);
   int ledChoice = potentValue / (1024 / LED_AMOUNT);
   // Serial.print("Value: ");
   // Serial.println(ledChoice);

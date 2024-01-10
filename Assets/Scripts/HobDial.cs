@@ -14,9 +14,6 @@ public class HobDial : MonoBehaviour
     int potVal;
 
 
-    //[Range(-120f,120f)] float DialVal = -30;
-
-
     [SerializeField] ParticleSystem FireSystem;
 
 
@@ -29,34 +26,16 @@ public class HobDial : MonoBehaviour
     void Update()
     {
         //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
-        /*string stringVal = arduino.InputText;
-        potVal = int.Parse(stringVal);*/
-        
 
         potVal = arduino.GetPotVal();
-
-        Debug.Log("value: " + potVal);
 
         float mappedPotVal = MapValue(potVal, 2f, 886f, -30f, 210f);
 
         //-----------------------------------------------
 
 
-        //---------Keyboard dial--------------------
-        /*if (Input.GetKey(KeyCode.Q))
-        {
-            DialVal -= Time.deltaTime * turnSpeed;
-            
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            DialVal += Time.deltaTime * turnSpeed;
-        }*/
-        //-------------------------------------------
-
-
         Vector3 rot = transform.localEulerAngles;
-        rot.z = MapValue(potVal, 1f, 886f, -30f, 210f); ;
+        rot.z = mappedPotVal;
         transform.localEulerAngles = rot;
         
         fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
