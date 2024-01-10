@@ -103,12 +103,27 @@ public class CanvasScript : MonoBehaviour
         //to instantiate ingredients
         if(spawnIngredient)
         {
-            //shrimp for testing
-            if(chosenItem == "Shrimp")
+            if (chosenItem == "Sauce")  //particles
             {
-                SpawnIngredients(3, 8, ingredients[0]);
+                SpawnIngredients(1, 1, ingredients[0], Random.rotation);
             }
-            
+            if (chosenItem == "Green Onion")    //particles
+            {
+                SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
+            }
+            if (chosenItem == "Shrimp") //object
+            {
+                SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
+            }
+            if (chosenItem == "Egg")    //object
+            {
+                SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
+            }
+            if (chosenItem == "Rice")   //particles
+            {
+                SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
+            }
+
             spawnIngredient = false;
         }
     }
@@ -338,14 +353,14 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-    void SpawnIngredients(int minAmount, int maxAmount, GameObject ingredient)
+    void SpawnIngredients(int minAmount, int maxAmount, GameObject ingredient, Quaternion rot)
     {
         int randAmount = Random.Range(minAmount, maxAmount);
 
         for(int i = 0; i < randAmount; i++)
         {
 
-            Instantiate(ingredient, spawnPoint.position, Random.rotation);
+            Instantiate(ingredient, spawnPoint.position, rot);
 
 
 
