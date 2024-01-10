@@ -9,7 +9,11 @@ public class PanScript : MonoBehaviour
     [SerializeField] float rotateSpeed = 1f, zSpeed = 0.5f;
 
     float mouseX, mouseY, rotateZ;
- 
+
+    [SerializeField] Arduino arduino;
+
+    Vector3 gyro;
+    [SerializeField] int gyroMult = 5;
 
     void Start()
     {
@@ -21,7 +25,7 @@ public class PanScript : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         //--------------Set Pan Rotation with Mouse-------------
         mouseX = Input.GetAxis("Mouse X") * rotateSpeed;
@@ -38,14 +42,25 @@ public class PanScript : MonoBehaviour
         {
             rotateZ = 0;
         }
-        //transform.Rotate(mouseY, rotateZ, mouseX);
         //-------------------------------------------------------
 
 
         //-------------Pan rotate using rb------------------------
-        Vector3 rotVector = new Vector3(-mouseY, rotateZ, mouseX);
-        Quaternion rotQuat = Quaternion.Euler(rotVector * Time.fixedDeltaTime);
-        rb.MoveRotation(rb.rotation * rotQuat);
+        //Vector3 rotVector = new Vector3(-mouseY, rotateZ, mouseX);
+        //Quaternion rotQuat = Quaternion.Euler(rotVector * Time.fixedDeltaTime);
+        //rb.MoveRotation(rb.rotation * rotQuat);
         //--------------------------------------------------------
+
+
+
+        //----------Controller Section-----------------------------
+        gyro.x = arduino.GetGyroVal().x;
+        gyro.y = arduino.GetGyroVal().z;
+        gyro.z = arduino.GetGyroVal().y;
+
+        Quaternion rotQuat = Quaternion.Euler(gyro * Time.fixedDeltaTime * gyroMult);
+        rb.MoveRotation(rb.rotation * rotQuat);
+
+
     }
 }
