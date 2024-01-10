@@ -68,6 +68,9 @@ public class CanvasScript : MonoBehaviour
     bool spawnIngredient;
     string chosenItem;
 
+    [SerializeField] float ingCooldown = 8f;
+
+
     void Start() 
     {
         fireLevelSlider.value = 1;
@@ -99,33 +102,8 @@ public class CanvasScript : MonoBehaviour
 
         ToMainMenu();
 
-
-        //to instantiate ingredients
-        if(spawnIngredient)
-        {
-            if (chosenItem == "Sauce")  //particles
-            {
-                SpawnIngredients(1, 1, ingredients[0], Random.rotation);
-            }
-            if (chosenItem == "Green Onion")    //particles
-            {
-                SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
-            }
-            if (chosenItem == "Shrimp") //object
-            {
-                SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
-            }
-            if (chosenItem == "Egg")    //object
-            {
-                SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
-            }
-            if (chosenItem == "Rice")   //particles
-            {
-                SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
-            }
-
-            spawnIngredient = false;
-        }
+        //IngredientsSection();
+        
     }
 
     void SetFireSlider()
@@ -355,17 +333,61 @@ public class CanvasScript : MonoBehaviour
 
     void SpawnIngredients(int minAmount, int maxAmount, GameObject ingredient, Quaternion rot)
     {
-        int randAmount = Random.Range(minAmount, maxAmount);
+        int randAmount = Random.Range(minAmount, maxAmount);    //range amount for number of ingredients
 
         for(int i = 0; i < randAmount; i++)
         {
-
-            Instantiate(ingredient, spawnPoint.position, rot);
-
-
-
-
+            Instantiate(ingredient, spawnPoint.position, rot);  //instatiate ingredient with given rotation
         }
     }
+
+    void IngredientsSection()
+    {
+
+
+
+        //to instantiate ingredients
+        if (spawnIngredient)
+        {
+            if (chosenItem == "Sauce")  //particles
+            {
+                SpawnIngredients(1, 1, ingredients[0], Random.rotation);
+            }
+            if (chosenItem == "Green Onion")    //particles
+            {
+                SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
+            }
+            if (chosenItem == "Shrimp") //object
+            {
+                SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
+            }
+            if (chosenItem == "Egg")    //object
+            {
+                SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
+            }
+            if (chosenItem == "Rice")   //particles
+            {
+                SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
+            }
+
+            spawnIngredient = false;
+        }
+    }
+
+
+
+    void FoodInPanCheck()
+    {
+
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("ingredients"))
+        {
+
+        }   
+    }
+
 
 }
