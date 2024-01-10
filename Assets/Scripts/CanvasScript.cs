@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEngine;
 //using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasScript : MonoBehaviour
 {
@@ -86,6 +87,8 @@ public class CanvasScript : MonoBehaviour
 
         JoystickInputs();
         UseJoyStick();
+
+        ToMainMenu();
     }
 
     void SetFireSlider()
@@ -301,6 +304,12 @@ public class CanvasScript : MonoBehaviour
         return mappedVal;
     }
 
-
+    void ToMainMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
 
 }
