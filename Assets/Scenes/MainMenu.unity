@@ -2037,18 +2037,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &961294235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3619,6 +3607,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 415572095289426400, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 415572095289426400, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5d9ebdd2f72a81f479a505155c018968, type: 2}
     - target: {fileID: 1211703849325029225, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
       propertyPath: m_Layer
       value: 5
@@ -3666,6 +3662,10 @@ PrefabInstance:
     - target: {fileID: 2370926817126845810, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252765459017165298, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6162501979586413767, guid: dc2a21e08bc235542aece1f761dc389a, type: 3}
       propertyPath: m_Name
