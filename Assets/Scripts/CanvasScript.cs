@@ -4,7 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.GameCenter;
+//using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
 
 public class CanvasScript : MonoBehaviour
