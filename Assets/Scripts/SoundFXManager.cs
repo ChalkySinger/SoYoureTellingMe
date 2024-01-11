@@ -17,7 +17,7 @@ public class SoundFXManager : MonoBehaviour
     [SerializeField] AudioClip[] sizzle;
 
     [Header("Ingredient SFX")]
-    [SerializeField] AudioClip[] chopping;
+    [SerializeField] AudioClip chopping;
     [SerializeField] AudioClip[] bottlePops;
     [SerializeField] AudioClip eggCrack;
 
@@ -73,7 +73,7 @@ public class SoundFXManager : MonoBehaviour
                 PlayRandomSoundFX(bottlePops, spawnPoint);
                 break;
             case SoundFXTypes.Chopping:
-                PlayRandomSoundFX(chopping, spawnPoint);
+                PlaySoundFX(chopping, spawnPoint);
                 break;
             case SoundFXTypes.Sizzle:
                 PlayRandomSoundFX(sizzle, spawnPoint);

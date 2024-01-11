@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748171, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18089,6 +18089,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundFXManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: hobDial
+      value: 
+      objectReference: {fileID: 8300000, guid: e86768e76c9fd5b4694452c34a293013, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: chopping
+      value: 
+      objectReference: {fileID: 8300000, guid: a158ca61019c7cd46b70286025f56b16, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: eggCrack
+      value: 
+      objectReference: {fileID: 8300000, guid: be982487909c36e4396c8a4811a41d32, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: sizzle.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: sizzle.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c0696381c8935146b8f011160cd1cf3, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: sizzle.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: fa694c11bff856545abe8f29f07e6baf, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: sizzle.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 783956252601ef441b2c2e40496be80d, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: fe3e9dc3c7631324880bf4d3f902e08a, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: c7a0576c879e8d04990781d33f3b03d6, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 85f8b941d5d076642b9248edff050f00, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: a1d47391148eeab499379d86a9e2eee2, type: 3}
+    - target: {fileID: 6719719279316299089, guid: 0d138d8314a3f20459b44d8921a8f066, type: 3}
+      propertyPath: bottlePops.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: d74cab732b7f0ce48913e1bcf559ed5e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
