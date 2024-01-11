@@ -368,7 +368,7 @@ public class CanvasScript : MonoBehaviour
                     break;
                 case "Shrimp":
                     SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
-                    cdTimer = cooldown/2;  //less cooldown if chosen shrimp
+                    cdTimer = cooldown / 2;  //less cooldown if chosen shrimp
                     break;
                 case "Egg":
                     SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
