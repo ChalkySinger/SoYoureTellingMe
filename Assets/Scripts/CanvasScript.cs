@@ -35,6 +35,8 @@ public class CanvasScript : MonoBehaviour
     float firePos, fireDestination, moveSpeed, fireTimer;
     [SerializeField] float timerMult = 5f, smoothSpeed = 1f;
 
+    bool lowFire, highFire;
+
     bool insideFireSection;
 
     [Header("Progress Bar")]
@@ -43,6 +45,10 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] float progressBarTimerCountdown = .5f; //how often to increase
 
     float progressBarTimer;
+
+    float barDecreaseCountdown = 10f;
+
+    bool winGame = false;
 
 
     [Header("Radial Menu")]
@@ -141,17 +147,42 @@ public class CanvasScript : MonoBehaviour
         if((handle.position.x > movingFireLevel.position.x - 50) && (handle.position.x < movingFireLevel.position.x + 50))
         {
             insideFireSection = true;
+            /*lowFire = false;
+            highFire = false;*/
         }
         else
         {
             insideFireSection = false;
         }
+
+        /*if(handle.position.x < movingFireLevel.position.x)
+        {
+            lowFire = true;
+        }
+        else
+        {
+            lowFire = false;
+        }
+
+        if(handle.position.x > movingFireLevel.position.x)
+        {
+            highFire = true;
+        }
+        else
+        {
+            highFire = false;
+        }*/
     }
 
 
     void ProgressSliderSection()
     {
-        if (insideFireSection)
+        if (winGame)
+        {
+            progressSlider.value = progressSlider.maxValue;
+        }
+
+        if (insideFireSection && !winGame)
         {
             progressBarTimer -= Time.deltaTime;
             if (progressBarTimer < 0)
@@ -162,17 +193,48 @@ public class CanvasScript : MonoBehaviour
             }
             
         }
-        else
+
+    
+        barDecreaseCountdown -= Time.deltaTime; //waits 10 seconds before allowing the timer to go down
+        if (barDecreaseCountdown <= 0f)
         {
-            progressBarTimer = progressBarTimerCountdown;
+            if (!insideFireSection)     //not inside fire section && (NEED TO ADD) when the ingredients are not moving
+            {
+                progressBarTimer -= Time.deltaTime;
+                if (progressBarTimer < 0 && !winGame)
+                {
+                    progressSlider.value -= progressIncreaseVal/2;
+
+                    progressBarTimer = progressBarTimerCountdown;
+                }
+
+                //MOTOR STUFF HERE
+            }
+
+            if(progressSlider.value <= 0)
+            {
+                //fail screen
+                SceneManager.LoadScene(3);
+            }
         }
+
+
         
 
         if(progressSlider.value >= progressSlider.maxValue)
         {
             //win screen
-            SceneManager.LoadScene(4);
+            StartCoroutine(WinGame());
         }
+    }
+
+    IEnumerator WinGame()
+    {
+        winGame = true;
+
+        yield return new WaitForSeconds(4f);
+
+        SceneManager.LoadScene(4);
     }
 
 
