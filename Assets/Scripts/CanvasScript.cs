@@ -13,7 +13,6 @@ public class CanvasScript : MonoBehaviour
     [Header("Arduino")]
     [SerializeField] Arduino arduino;
     //----------joystick----------
-    //Vector3 joystickVal;
     bool joystickButtonDown = false, buttonHeld = false, buttonWasPressed = false, selectIngredient = false, executeSelection = false;
 
     float joyX, joyY;
@@ -68,7 +67,10 @@ public class CanvasScript : MonoBehaviour
     bool spawnIngredient;
     string chosenItem;
 
-    [SerializeField] float ingCooldown = 8f;
+    [SerializeField] float cooldown = 9f;
+    float cdTimer;
+    [SerializeField] Image cdImage;
+    bool coolingDown = false;
 
 
     void Start() 
@@ -79,6 +81,10 @@ public class CanvasScript : MonoBehaviour
         radialMenuActive = false;
 
         joystickButtonDown = false;
+
+        cdImage.fillAmount = 0;
+
+        cdTimer = cooldown;
     }
 
     
@@ -102,7 +108,7 @@ public class CanvasScript : MonoBehaviour
 
         ToMainMenu();
 
-        //IngredientsSection();
+        IngredientsSection();
         
     }
 
@@ -162,23 +168,9 @@ public class CanvasScript : MonoBehaviour
     }
 
 
-    //----------show and hide ingredient menu when press F--------
+    //----------Show menu when holding joystick down--------
     void ShowRadialMenu()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            radialMenuActive = !radialMenuActive;
-            if (radialMenuActive)
-            {
-                radialMenu.SetActive(true);
-            }
-            else
-            {
-                radialMenu.SetActive(false);
-            }
-        }
-
-
         if(radialMenuActive)
         {
             radialMenu.SetActive(true);
@@ -189,10 +181,10 @@ public class CanvasScript : MonoBehaviour
         }
 
     }
-    //-----------------------------------------------------------
+    //-------------------------------------------------------
 
 
-    //select item based on mouse around the center (will change for joystick)
+    //select item based on joystick around the center 
     //when chosen, close menu and say which item was chosen
     void SelectRadialMenu()
     {
@@ -212,21 +204,28 @@ public class CanvasScript : MonoBehaviour
                     select.eulerAngles = new Vector3(0, 0, i);      //rotate selector around z axis
                     selectedText.text = items[currentItem].name;    //change text to selected item
 
-                    if (selectIngredient)           //when item chosen
+                    if (selectIngredient && !coolingDown)           //when item chosen
                     {
                         selectIngredient = false;   //stop loop
+
+                        coolingDown = true;
+                        cdImage.fillAmount = 1;     //cooldown starts
 
                         SpawnTextPopUp(items[currentItem].name);    //show which item was chosen
 
                         //-------INSTANTIATE INGREDIENT CODE HERE------
-                        Debug.Log("spawn ingredient");
-
 
                         chosenItem = items[currentItem].name;
                         spawnIngredient = true;
                         
-
                         //---------------------------------------------
+                    }
+                    else if(selectIngredient && coolingDown)
+                    {
+                        selectIngredient = true;
+                        joystickButtonDown = true;
+                        buttonHeld = true;
+
                     }
                     
                 }
@@ -254,10 +253,6 @@ public class CanvasScript : MonoBehaviour
 
     void JoystickInputs()
     {
-        //joystickVal = arduino.GetJoyVal();
-
-        Debug.Log("X: " + arduino.GetJoyVal().x + " Y: " + arduino.GetJoyVal().y + " Button: " + arduino.GetJoyVal().z);
-
         if(arduino.GetJoyVal().z == 0)
         {
             joystickButtonDown = true;
@@ -268,7 +263,6 @@ public class CanvasScript : MonoBehaviour
             joystickButtonDown = false;
 
         }
-
 
         //x and y mapped to window size
         joyX = MapValue(arduino.GetJoyVal().x, 0f, 1023f, 0f, 1920f);
@@ -343,31 +337,47 @@ public class CanvasScript : MonoBehaviour
 
     void IngredientsSection()
     {
+        if (coolingDown)
+        {
+            cdImage.fillAmount -= 1 / cdTimer * Time.deltaTime;
 
+            if(cdImage.fillAmount <= 0)
+            {
+                cdImage.fillAmount = 0;
+                coolingDown = false;
+            }
+
+            selectIngredient = false;
+            executeSelection = false;
+        }
 
 
         //to instantiate ingredients
         if (spawnIngredient)
         {
-            if (chosenItem == "Sauce")  //particles
+
+            switch (chosenItem)
             {
-                SpawnIngredients(1, 1, ingredients[0], Random.rotation);
-            }
-            if (chosenItem == "Green Onion")    //particles
-            {
-                SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
-            }
-            if (chosenItem == "Shrimp") //object
-            {
-                SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
-            }
-            if (chosenItem == "Egg")    //object
-            {
-                SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
-            }
-            if (chosenItem == "Rice")   //particles
-            {
-                SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
+                case "Sauce":
+                    SpawnIngredients(1, 1, ingredients[0], Random.rotation);
+                    cdTimer = cooldown;
+                    break;
+                case "Green Onion":
+                    SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
+                    cdTimer = cooldown;
+                    break;
+                case "Shrimp":
+                    SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
+                    cdTimer = cooldown/2;  //less cooldown if chosen shrimp
+                    break;
+                case "Egg":
+                    SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
+                    cdTimer = cooldown;
+                    break;
+                case "Rice":
+                    SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
+                    cdTimer = cooldown;
+                    break;
             }
 
             spawnIngredient = false;
