@@ -98,6 +98,8 @@ public class CanvasScript : MonoBehaviour
         cdImage.fillAmount = 0;
 
         cdTimer = cooldown;
+
+        hapticFeedback = false;
     }
 
     
@@ -231,6 +233,7 @@ public class CanvasScript : MonoBehaviour
             {
                 //fail screen
                 SceneManager.LoadScene(3);
+                hapticFeedback = false;
             }
         }
 
@@ -240,6 +243,7 @@ public class CanvasScript : MonoBehaviour
         if(progressSlider.value >= progressSlider.maxValue)
         {
             //win screen
+            hapticFeedback = false;
             StartCoroutine(WinGame());
         }
     }
