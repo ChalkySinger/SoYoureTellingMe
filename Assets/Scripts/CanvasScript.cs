@@ -453,7 +453,7 @@ public class CanvasScript : MonoBehaviour
                     cdTimer = cooldown;
                     break;
                 case "Green Onion":
-                    SpawnIngredients(1, 1, ingredients[1], Quaternion.identity);
+                    SpawnIngredients(7, 21, ingredients[1], Random.rotation);
                     cdTimer = cooldown;
                     break;
                 case "Shrimp":
@@ -461,7 +461,7 @@ public class CanvasScript : MonoBehaviour
                     cdTimer = cooldown / 2;  //less cooldown if chosen shrimp
                     break;
                 case "Egg":
-                    SpawnIngredients(1, 3, ingredients[3], Quaternion.identity);
+                    SpawnIngredients(1, 3, ingredients[3], Random.rotation);
                     cdTimer = cooldown;
                     break;
                 case "Rice":
@@ -487,5 +487,10 @@ public class CanvasScript : MonoBehaviour
             arduino.SendData("0");
         }
 
+    }
+
+    private void OnDisable()
+    {
+        hapticFeedback = false;
     }
 }

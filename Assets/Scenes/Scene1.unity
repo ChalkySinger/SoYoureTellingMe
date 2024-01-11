@@ -8039,7 +8039,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 507158894}
   ingredients:
   - {fileID: 2977305474273586584, guid: 3513c6d053ccba648ae5276add022992, type: 3}
-  - {fileID: 8476891376391991511, guid: dca76ed19ff5d8541868c47b1c657e23, type: 3}
+  - {fileID: 8589928490904895710, guid: 4a5f3434f0aae694696949b690f0c027, type: 3}
   - {fileID: 7041151260666949841, guid: 20575443ac19933408425afcb140f59d, type: 3}
   - {fileID: 4563797349831883481, guid: beece69f126c4534293f48d9c90b47a6, type: 3}
   - {fileID: 1354220869992231289, guid: c78d3af63a48afc419e064e207c74d4d, type: 3}
