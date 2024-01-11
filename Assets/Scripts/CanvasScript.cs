@@ -81,11 +81,7 @@ public class CanvasScript : MonoBehaviour
     bool coolingDown = false;
 
 
-    [Header("Motor Section")]
-    [SerializeField] float buzzCount;
-    [SerializeField] int motorHighSpeed = 150, motorLowSpeed = 50;
-    float timeBetweenBuzzes = .2f, buzzDuration = .1f;
-
+    //motor feedback
     bool hapticFeedback;
 
 
@@ -127,10 +123,9 @@ public class CanvasScript : MonoBehaviour
 
         IngredientsSection();
 
-        if(hapticFeedback)
-        {
-            MotorHaptics();
-        }
+
+        MotorOnOff();
+        
         
     }
 
@@ -161,15 +156,15 @@ public class CanvasScript : MonoBehaviour
         if((handle.position.x > movingFireLevel.position.x - 50) && (handle.position.x < movingFireLevel.position.x + 50))
         {
             insideFireSection = true;
-            /*lowFire = false;
-            highFire = false;*/
+            lowFire = false;
+            highFire = false;
         }
         else
         {
             insideFireSection = false;
         }
 
-        /*if(handle.position.x < movingFireLevel.position.x)
+        if (handle.position.x < movingFireLevel.position.x)
         {
             lowFire = true;
         }
@@ -178,14 +173,14 @@ public class CanvasScript : MonoBehaviour
             lowFire = false;
         }
 
-        if(handle.position.x > movingFireLevel.position.x)
+        if (handle.position.x > movingFireLevel.position.x)
         {
             highFire = true;
         }
         else
         {
             highFire = false;
-        }*/
+        }
     }
 
 
@@ -200,6 +195,8 @@ public class CanvasScript : MonoBehaviour
         if (insideFireSection && !winGame)
         {
             hapticFeedback = false;
+            arduino.SendData("o");
+
             progressBarTimer -= Time.deltaTime;
             if (progressBarTimer < 0)
             {
@@ -226,6 +223,8 @@ public class CanvasScript : MonoBehaviour
 
                 //MOTOR STUFF HERE
                 hapticFeedback = true;
+
+                Debug.Log("MOTOR ON");
             }
 
             if(progressSlider.value <= 0)
@@ -446,7 +445,7 @@ public class CanvasScript : MonoBehaviour
             switch (chosenItem)
             {
                 case "Sauce":
-                    SpawnIngredients(1, 1, ingredients[0], Random.rotation);
+                    SpawnIngredients(1, 1, ingredients[0], Quaternion.identity);
                     cdTimer = cooldown;
                     break;
                 case "Green Onion":
@@ -454,7 +453,7 @@ public class CanvasScript : MonoBehaviour
                     cdTimer = cooldown;
                     break;
                 case "Shrimp":
-                    SpawnIngredients(3, 10, ingredients[2], Quaternion.identity);
+                    SpawnIngredients(3, 10, ingredients[2], Random.rotation);
                     cdTimer = cooldown / 2;  //less cooldown if chosen shrimp
                     break;
                 case "Egg":
@@ -471,11 +470,18 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-    void MotorHaptics()
-    {
-        //if motor spin: arduino.SendData("y");
-        //if motor not spin: arduino.SendData("n");
-        
-    }
+   
 
+    void MotorOnOff()
+    {
+        if (hapticFeedback)
+        {
+            arduino.SendData("1");
+        }
+        else
+        {
+            arduino.SendData("0");
+        }
+
+    }
 }

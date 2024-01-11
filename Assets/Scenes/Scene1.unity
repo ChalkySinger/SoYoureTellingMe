@@ -1956,8 +1956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebb4903fb0e2bb4bb519425954965b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 80
-  zSpeed: 15
   arduino: {fileID: 68823792}
   gyroMult: 50
 --- !u!4 &278561746
@@ -8047,6 +8045,11 @@ MonoBehaviour:
   - {fileID: 1354220869992231289, guid: c78d3af63a48afc419e064e207c74d4d, type: 3}
   cooldown: 9
   cdImage: {fileID: 225633270}
+  buzzCount: 5
+  motorHighSpeed: 150
+  motorLowSpeed: 50
+  timeBetweenLowBuzzes: 0.4
+  timeBetweenHighBuzzes: 0.2
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -8875,8 +8878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bebb4903fb0e2bb4bb519425954965b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 100
-  zSpeed: 20
   arduino: {fileID: 0}
   gyroMult: 5
 --- !u!4 &926272731

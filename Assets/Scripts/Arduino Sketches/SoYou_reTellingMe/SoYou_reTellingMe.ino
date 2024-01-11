@@ -42,7 +42,6 @@ int LED_AMOUNT = 5;
 int mappedPotVal;
 
 
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -56,6 +55,7 @@ void setup() {
   pinMode(LED4_PIN, OUTPUT);        // LED 4
 
   pinMode(MOTOR_PIN, OUTPUT);
+  digitalWrite(MOTOR_PIN, LOW);
 
   digitalWrite(2,HIGH);             //joystick button
 
@@ -72,7 +72,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   LedsWithPotent();
   WriteSerial();
-
+  ReadSerial();
 }
 
 void WriteSerial()
@@ -102,31 +102,26 @@ void WriteSerial()
 
 void ReadSerial()
 {
-  // Here use chars to detect outputs from Unity
-  if(Serial.available() > 0)
+   //Here use chars to detect outputs from Unity
+  if(Serial.available())
   {
-    char c = Serial.read(); //reads character from unity for motor on high, low, or motor off
-    switch (c)
+    int motorState = Serial.read();
+
+    switch(motorState)
     {
-      case "h":
-        //motor on high
-
+      case '1':
+        digitalWrite(MOTOR_PIN, HIGH);
         break;
-      case "l":
-        //motor on low
-
-        break;
-      case "o":
-        //motor off
-
+      case '0':
+        digitalWrite(MOTOR_PIN, LOW);
         break;
       default:
-        //motor off if default 
-
+        digitalWrite(MOTOR_PIN, LOW);
         break;
     }
 
   }
+
 }
 
 
