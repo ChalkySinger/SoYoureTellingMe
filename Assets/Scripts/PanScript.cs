@@ -13,13 +13,10 @@ public class PanScript : MonoBehaviour
     Vector3 gyro;
     [SerializeField] int gyroMult = 5;
 
-    //[Header("Ingredients in Pan Check")]
-    List<GameObject> itemsInPan = new List<GameObject>();
-
 
     bool cooking;
-    float timeInTrigger;
-    [SerializeField] float boolTrueTime = .7f;
+    float timer, panVel;
+    [SerializeField] float boolTrueTime = .3f;
     
     
 
@@ -51,11 +48,12 @@ public class PanScript : MonoBehaviour
     private void Update()
     {
 
-        CheckIngrMovement();
+        CheckkMovement();
 
         if(cooking)
         {
-            Debug.Log("uhh cooking");
+            Debug.Log("uhh " + panVel);
+
         }
         else
         {
@@ -64,30 +62,9 @@ public class PanScript : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider col)
+    void CheckkMovement()
     {
-        if (col.CompareTag("ingredients"))
-        {
-
-            itemsInPan.Add(col.gameObject);
-
-        }
-
-    }
-
-    private void OnTriggerExit(Collider col)
-    {
-        if (col.CompareTag("ingredients"))
-        {
-
-            itemsInPan.Remove(col.gameObject);
-            
-        }
-    }
-
-    void CheckIngrMovement()
-    {
-        foreach (GameObject item in itemsInPan)
+        /*foreach (GameObject item in itemsInPan)
         {
             Vector3 itemVel = item.GetComponent<Rigidbody>().velocity;
 
@@ -96,24 +73,41 @@ public class PanScript : MonoBehaviour
                 Debug.Log("Vel: " +  itemVel.magnitude);
 
                 timeInTrigger += Time.deltaTime;
+                cooking = true;
 
-                if(timeInTrigger < boolTrueTime)
-                {
-                    cooking = true;
-                }
-                else
+                if (timeInTrigger > boolTrueTime)
                 {
                     cooking = false;
                     timeInTrigger = 0;
                 }
 
+
                 sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
             }
-            else
+            *//*else
             {
                 cooking = false;
                 timeInTrigger = 0;
+            }*//*
+        }*/
+        panVel = rb.angularVelocity.normalized.magnitude;
+
+        if(panVel > .2)
+        {
+            timer += Time.deltaTime;
+            cooking = true;
+
+            if(timer > boolTrueTime)
+            {
+                cooking = false;
+                timer = 0;
             }
+
+            sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
+        }
+        else
+        {
+            cooking = false;
         }
     }
 
