@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PanScript : MonoBehaviour
@@ -8,52 +9,32 @@ public class PanScript : MonoBehaviour
 
     [SerializeField] float rotateSpeed = 1f, zSpeed = 0.5f;
 
-    float mouseX, mouseY, rotateZ;
-
     [SerializeField] Arduino arduino;
 
     Vector3 gyro;
     [SerializeField] int gyroMult = 5;
+
+
+    //[Header("Ingredients in Pan Check")]
+    List<GameObject> itemsInPan = new List<GameObject>();
+
+    List<ParticleSystem.Particle> particlesInPan = new List<ParticleSystem.Particle>();
+
+    GameObject[] allItems;
 
     void Start()
     {
         //Cursor.visible = false;
         //Cursor.lockState = CursorLockMode.Locked;
 
-        //rb = GetComponentInChildren<Rigidbody>();
         rb = GetComponent<Rigidbody>();
     }
 
 
     void FixedUpdate()
     {
-        //--------------Set Pan Rotation with Mouse-------------
-        mouseX = Input.GetAxis("Mouse X") * rotateSpeed;
-        mouseY = Input.GetAxis("Mouse Y") * rotateSpeed;
-        if(Input.GetMouseButton(0))
-        {
-            rotateZ = -1 * zSpeed;
-        }
-        else if(Input.GetMouseButton(1))
-        {
-            rotateZ = 1 * zSpeed;
-        }
-        else
-        {
-            rotateZ = 0;
-        }
-        //-------------------------------------------------------
 
-
-        //-------------Pan rotate using rb------------------------
-        //Vector3 rotVector = new Vector3(-mouseY, rotateZ, mouseX);
-        //Quaternion rotQuat = Quaternion.Euler(rotVector * Time.fixedDeltaTime);
-        //rb.MoveRotation(rb.rotation * rotQuat);
-        //--------------------------------------------------------
-
-
-
-        //----------Controller Section-----------------------------
+        //---------------- Pan Rotate With Controller -----------------------------
         gyro.x = arduino.GetGyroVal().x;
         gyro.y = arduino.GetGyroVal().z;
         gyro.z = arduino.GetGyroVal().y;
@@ -63,4 +44,47 @@ public class PanScript : MonoBehaviour
 
 
     }
+
+    private void Update()
+    {
+        Debug.Log("pan: " + itemsInPan.Count /*+ " , " + allItems.Length*/);
+        
+        //Debug.Log("particles: " +  particlesInPan.Count);
+
+        /*allItems = GameObject.FindGameObjectsWithTag("ingredients");
+        foreach (GameObject item in allItems)
+        {
+            itemsInPan.Append(item);
+        }*/
+
+    }
+
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.CompareTag("ingredients"))
+        {
+            Debug.Log("In pan");
+
+            itemsInPan.Add(col.gameObject);
+        }
+
+    }
+
+    private void OnTriggerExit(Collider col)
+    {
+        if (col.CompareTag("ingredients"))
+        {
+            Debug.Log("Not in pan");
+
+            itemsInPan.Remove(col.gameObject);
+        }
+    }
+
+    /*private void OnParticleTrigger()
+    {
+        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, particlesInPan);
+    }*/
+
+
 }

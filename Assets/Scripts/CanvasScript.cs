@@ -67,6 +67,8 @@ public class CanvasScript : MonoBehaviour
     bool spawnIngredient;
     string chosenItem;
 
+
+    [Header("Radial Menu Cooldown")]
     [SerializeField] float cooldown = 9f;
     float cdTimer;
     [SerializeField] Image cdImage;
@@ -165,6 +167,12 @@ public class CanvasScript : MonoBehaviour
             progressBarTimer = progressBarTimerCountdown;
         }
         
+
+        if(progressSlider.value >= progressSlider.maxValue)
+        {
+            //win screen
+            SceneManager.LoadScene(4);
+        }
     }
 
 
@@ -384,20 +392,6 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-
-
-    void FoodInPanCheck()
-    {
-
-    }
-
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.CompareTag("ingredients"))
-        {
-
-        }   
-    }
 
 
 }
