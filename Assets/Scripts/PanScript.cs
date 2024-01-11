@@ -1,24 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PanScript : MonoBehaviour
 {
     Rigidbody rb;
-
+    SoundFXManager sfx;
     [SerializeField] Arduino arduino;
 
     Vector3 gyro;
     [SerializeField] int gyroMult = 5;
 
-
     //[Header("Ingredients in Pan Check")]
     List<GameObject> itemsInPan = new List<GameObject>();
 
-    List<ParticleSystem.Particle> particlesInPan = new List<ParticleSystem.Particle>();
 
-    GameObject[] allItems;
+    bool cooking;
+    float timeInTrigger;
+    [SerializeField] float boolTrueTime = .7f;
+    
+    
 
     void Start()
     {
@@ -26,6 +29,8 @@ public class PanScript : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
 
         rb = GetComponent<Rigidbody>();
+
+        sfx = FindObjectOfType<SoundFXManager>();
     }
 
 
@@ -45,16 +50,17 @@ public class PanScript : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("pan: " + itemsInPan.Count /*+ " , " + allItems.Length*/);
-        
-        //Debug.Log("particles: " +  particlesInPan.Count);
 
-        /*allItems = GameObject.FindGameObjectsWithTag("ingredients");
-        foreach (GameObject item in allItems)
+        CheckIngrMovement();
+
+        if(cooking)
         {
-            itemsInPan.Append(item);
-        }*/
-
+            Debug.Log("uhh cooking");
+        }
+        else
+        {
+            Debug.Log("uhh not cooking");
+        }
     }
 
 
@@ -62,9 +68,9 @@ public class PanScript : MonoBehaviour
     {
         if (col.CompareTag("ingredients"))
         {
-            Debug.Log("In pan");
 
             itemsInPan.Add(col.gameObject);
+
         }
 
     }
@@ -73,16 +79,46 @@ public class PanScript : MonoBehaviour
     {
         if (col.CompareTag("ingredients"))
         {
-            Debug.Log("Not in pan");
 
             itemsInPan.Remove(col.gameObject);
+            
         }
     }
 
-    /*private void OnParticleTrigger()
+    void CheckIngrMovement()
     {
-        int numEnter = ps.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, particlesInPan);
-    }*/
+        foreach (GameObject item in itemsInPan)
+        {
+            Vector3 itemVel = item.GetComponent<Rigidbody>().velocity;
 
+            if(itemVel.magnitude > 1)
+            {
+                Debug.Log("Vel: " +  itemVel.magnitude);
 
+                timeInTrigger += Time.deltaTime;
+
+                if(timeInTrigger < boolTrueTime)
+                {
+                    cooking = true;
+                }
+                else
+                {
+                    cooking = false;
+                    timeInTrigger = 0;
+                }
+
+                sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
+            }
+            else
+            {
+                cooking = false;
+                timeInTrigger = 0;
+            }
+        }
+    }
+
+    public bool IsCooking()
+    {
+        return cooking;
+    }
 }
