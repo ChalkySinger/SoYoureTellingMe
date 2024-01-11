@@ -103,7 +103,30 @@ void WriteSerial()
 void ReadSerial()
 {
   // Here use chars to detect outputs from Unity
+  if(Serial.available() > 0)
+  {
+    char c = Serial.read(); //reads character from unity for motor on high, low, or motor off
+    switch (c)
+    {
+      case "h":
+        //motor on high
 
+        break;
+      case "l":
+        //motor on low
+
+        break;
+      case "o":
+        //motor off
+
+        break;
+      default:
+        //motor off if default 
+
+        break;
+    }
+
+  }
 }
 
 

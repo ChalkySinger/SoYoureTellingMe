@@ -81,6 +81,15 @@ public class CanvasScript : MonoBehaviour
     bool coolingDown = false;
 
 
+    [Header("Motor Section")]
+    [SerializeField] float buzzCount;
+    [SerializeField] int motorHighSpeed = 150, motorLowSpeed = 50;
+    float timeBetweenBuzzes = .2f, buzzDuration = .1f;
+
+    bool hapticFeedback;
+
+
+
     void Start() 
     {
         fireLevelSlider.value = 1;
@@ -117,6 +126,11 @@ public class CanvasScript : MonoBehaviour
         ToMainMenu();
 
         IngredientsSection();
+
+        if(hapticFeedback)
+        {
+            MotorHaptics();
+        }
         
     }
 
@@ -180,10 +194,12 @@ public class CanvasScript : MonoBehaviour
         if (winGame)
         {
             progressSlider.value = progressSlider.maxValue;
+            hapticFeedback = false;
         }
 
         if (insideFireSection && !winGame)
         {
+            hapticFeedback = false;
             progressBarTimer -= Time.deltaTime;
             if (progressBarTimer < 0)
             {
@@ -209,6 +225,7 @@ public class CanvasScript : MonoBehaviour
                 }
 
                 //MOTOR STUFF HERE
+                hapticFeedback = true;
             }
 
             if(progressSlider.value <= 0)
@@ -454,6 +471,11 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-
+    void MotorHaptics()
+    {
+        //if motor spin: arduino.SendData("y");
+        //if motor not spin: arduino.SendData("n");
+        
+    }
 
 }

@@ -7,8 +7,6 @@ public class PanScript : MonoBehaviour
 {
     Rigidbody rb;
 
-    [SerializeField] float rotateSpeed = 1f, zSpeed = 0.5f;
-
     [SerializeField] Arduino arduino;
 
     Vector3 gyro;
