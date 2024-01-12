@@ -8,6 +8,8 @@ using System.Runtime.Remoting.Messaging;
 
 public class Arduino : MonoBehaviour
 {
+    public static Arduino instance;
+
     [SerializeField] string portName;
     [SerializeField] int baudRate = 115200; // Higer baud rate due to the Gyro
     SerialPort serialPort;
@@ -27,6 +29,23 @@ public class Arduino : MonoBehaviour
     public string InputText { get; private set; }
 
 
+    public void Awake()
+    {
+        Singleton();
+    }
+
+    void Singleton()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
 
     void Start()

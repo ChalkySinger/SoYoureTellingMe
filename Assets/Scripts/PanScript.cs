@@ -8,7 +8,7 @@ public class PanScript : MonoBehaviour
 {
     Rigidbody rb;
     SoundFXManager sfx;
-    [SerializeField] Arduino arduino;
+    //[SerializeField] Arduino arduino;
 
     Vector3 gyro;
     [SerializeField] int gyroMult = 5;
@@ -35,9 +35,9 @@ public class PanScript : MonoBehaviour
     {
 
         //---------------- Pan Rotate With Controller -----------------------------
-        gyro.x = arduino.GetGyroVal().x;
-        gyro.y = arduino.GetGyroVal().z;
-        gyro.z = arduino.GetGyroVal().y;
+        gyro.x = Arduino.instance.GetGyroVal().x;
+        gyro.y = Arduino.instance.GetGyroVal().z;
+        gyro.z = Arduino.instance.GetGyroVal().y;
 
         Quaternion rotQuat = Quaternion.Euler(-gyro * Time.fixedDeltaTime * gyroMult);
         rb.MoveRotation(rb.rotation * rotQuat);

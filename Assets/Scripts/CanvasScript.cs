@@ -11,7 +11,6 @@ using UnityEngine.SceneManagement;
 public class CanvasScript : MonoBehaviour
 {
     [Header("Arduino")]
-    [SerializeField] Arduino arduino;
     //----------joystick----------
     bool joystickButtonDown = false, buttonHeld = false, buttonWasPressed = false, selectIngredient = false, executeSelection = false;
 
@@ -35,7 +34,6 @@ public class CanvasScript : MonoBehaviour
     float firePos, fireDestination, moveSpeed, fireTimer;
     [SerializeField] float timerMult = 5f, smoothSpeed = 1f;
 
-    bool lowFire, highFire;
 
     bool insideFireSection;
 
@@ -100,6 +98,11 @@ public class CanvasScript : MonoBehaviour
         cdTimer = cooldown;
 
         hapticFeedback = false;
+
+        if(Arduino.instance != null)
+        {
+            Debug.Log("AAAA");
+        }
     }
 
     
@@ -158,31 +161,13 @@ public class CanvasScript : MonoBehaviour
         if((handle.position.x > movingFireLevel.position.x - 50) && (handle.position.x < movingFireLevel.position.x + 50))
         {
             insideFireSection = true;
-            lowFire = false;
-            highFire = false;
+
         }
         else
         {
             insideFireSection = false;
         }
 
-        if (handle.position.x < movingFireLevel.position.x)
-        {
-            lowFire = true;
-        }
-        else
-        {
-            lowFire = false;
-        }
-
-        if (handle.position.x > movingFireLevel.position.x)
-        {
-            highFire = true;
-        }
-        else
-        {
-            highFire = false;
-        }
     }
 
 
@@ -197,7 +182,7 @@ public class CanvasScript : MonoBehaviour
         if (insideFireSection && !winGame)
         {
             hapticFeedback = false;
-            arduino.SendData("o");
+            Arduino.instance.SendData("o");
 
             progressBarTimer -= Time.deltaTime;
             if (progressBarTimer < 0)
@@ -343,7 +328,7 @@ public class CanvasScript : MonoBehaviour
 
     void JoystickInputs()
     {
-        if(arduino.GetJoyVal().z == 0)
+        if(Arduino.instance.GetJoyVal().z == 0)
         {
             joystickButtonDown = true;
 
@@ -355,8 +340,8 @@ public class CanvasScript : MonoBehaviour
         }
 
         //x and y mapped to window size
-        joyX = MapValue(arduino.GetJoyVal().x, 0f, 1023f, 0f, 1920f);
-        joyY = MapValue(arduino.GetJoyVal().y, 0f, 1023f, 1080f, 0f);
+        joyX = MapValue(Arduino.instance.GetJoyVal().x, 0f, 1023f, 0f, 1920f);
+        joyY = MapValue(Arduino.instance.GetJoyVal().y, 0f, 1023f, 1080f, 0f);
 
         mappedJoystickVector = new Vector2 (joyX, joyY);
     }
@@ -480,11 +465,11 @@ public class CanvasScript : MonoBehaviour
     {
         if (hapticFeedback)
         {
-            arduino.SendData("1");
+            Arduino.instance.SendData("1");
         }
         else
         {
-            arduino.SendData("0");
+            Arduino.instance.SendData("0");
         }
 
     }

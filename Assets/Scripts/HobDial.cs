@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class HobDial : MonoBehaviour
 {
-    [SerializeField] Arduino arduino;
+    //[SerializeField] Arduino arduino;
 
 
     [SerializeField] float fireLevel = 1f;
@@ -27,7 +27,7 @@ public class HobDial : MonoBehaviour
     {
         //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
 
-        potVal = arduino.GetPotVal();
+        potVal = Arduino.instance.GetPotVal();
 
         float mappedPotVal = MapValue(potVal, 2f, 886f, -30f, 210f);
 
