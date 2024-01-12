@@ -45,3 +45,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundFXClip: {fileID: 4205289017413714835, guid: 3f29f66d75bf3de458841c153a5cfdfa, type: 3}
+  hobDial: {fileID: 8300000, guid: e86768e76c9fd5b4694452c34a293013, type: 3}
+  sizzle:
+  - {fileID: 8300000, guid: 5c0696381c8935146b8f011160cd1cf3, type: 3}
+  - {fileID: 8300000, guid: fa694c11bff856545abe8f29f07e6baf, type: 3}
+  - {fileID: 8300000, guid: 783956252601ef441b2c2e40496be80d, type: 3}
+  chopping: {fileID: 8300000, guid: a158ca61019c7cd46b70286025f56b16, type: 3}
+  bottlePops:
+  - {fileID: 8300000, guid: c7a0576c879e8d04990781d33f3b03d6, type: 3}
+  - {fileID: 8300000, guid: 85f8b941d5d076642b9248edff050f00, type: 3}
+  - {fileID: 8300000, guid: a1d47391148eeab499379d86a9e2eee2, type: 3}
+  - {fileID: 8300000, guid: fe3e9dc3c7631324880bf4d3f902e08a, type: 3}
+  eggCrack: {fileID: 8300000, guid: be982487909c36e4396c8a4811a41d32, type: 3}

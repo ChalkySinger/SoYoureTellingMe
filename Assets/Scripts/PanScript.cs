@@ -21,8 +21,8 @@ public class PanScript : MonoBehaviour
 
     void Start()
     {
-        //Cursor.visible = false;
-        //Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
 
         rb = GetComponent<Rigidbody>();
 

@@ -95,16 +95,16 @@ public class SoundFXManager : MonoBehaviour
 
     public void SizzleShort1(Vector3 position)
     {
-        PlaySoundFX(sizzle[2], position);
+        PlaySoundFX(sizzle[1], position);
     }
 
     public void SizzleShort2(Vector3 position)
     {
-        PlaySoundFX(sizzle[3], position);
+        PlaySoundFX(sizzle[2], position);
     }
 
     public void SizzleLong(Vector3 position)
     {
-        PlaySoundFX(sizzle[1], position);
+        PlaySoundFX(sizzle[0], position);
     }
 }

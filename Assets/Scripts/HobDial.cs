@@ -42,7 +42,7 @@ public class HobDial : MonoBehaviour
 
         FireParticleUpdate();
 
-        if(potVal > oldPotVal + 5 || potVal < oldPotVal - 5)
+        if(potVal > oldPotVal + 75 || potVal < oldPotVal - 75)
         {
             FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.HobDial, transform.position, true);
             oldPotVal = potVal;

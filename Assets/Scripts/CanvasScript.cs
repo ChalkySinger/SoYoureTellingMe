@@ -138,7 +138,6 @@ public class CanvasScript : MonoBehaviour
 
         MotorOnOff();
 
-        //ProgressBarSections();
     }
 
     void SetFireSlider()
@@ -480,7 +479,7 @@ public class CanvasScript : MonoBehaviour
 
                     break;
                 case "Rice":
-                    SpawnIngredients(1, 3, ingredients[4], Quaternion.identity);
+                    SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
                     cdTimer = cooldown;
 
                     
@@ -513,28 +512,5 @@ public class CanvasScript : MonoBehaviour
     }
 
 
-    void ProgressBarSections()
-    {
-        float section = (progressSlider.maxValue / sectionArray.Length);
-
-        float nextSection = section * 2;
-
-        if (progressSlider.value < sectionArray[0])
-        {
-            sectionStop = true;    //stop progress slider if thisSection true
-
-        }
-
-        if(selectIngredient)
-        {
-            sectionStop = false;
-        }
-
-        //check progress slider is at the section 
-        //stop progressing forward 
-        //ingredient has to be selected
-        //then allow slider to keep progressing
-
-
-    }
+    
 }

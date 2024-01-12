@@ -9,14 +9,13 @@ public class SceneSwitcher : MonoBehaviour
     {
         // Call the SwitchScene function after 27 seconds
         Invoke("SwitchScene", 28f);
+
+        Cursor.visible = false;
     }
 
     void Update()
     {
-        /*if(Input.GetMouseButtonDown(0))
-        {
-            SwitchScene();
-        }*/
+
 
         if(Arduino.instance.GetJoyVal().z == 0)
         {
