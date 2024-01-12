@@ -17,12 +17,6 @@ public class HobDial : MonoBehaviour
     [SerializeField] ParticleSystem FireSystem;
 
 
-    void Start()
-    {
-
-    }
-
-
     void Update()
     {
         //--------Potentiometer dial---------------------   potentiometer: (1-4) - (886-887)
@@ -36,13 +30,13 @@ public class HobDial : MonoBehaviour
 
         Vector3 rot = transform.localEulerAngles;
         rot.z = mappedPotVal;
-        transform.localEulerAngles = rot;
+        transform.localEulerAngles = rot;       //set z rotation of the actual dial game object to the rotation of the potentiometer
         
         fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
 
         FireParticleUpdate();
 
-        if(potVal > oldPotVal + 75 || potVal < oldPotVal - 75)
+        if(potVal > oldPotVal + 75 || potVal < oldPotVal - 75)  //play click sound when potentiometer is turned left or right by 75
         {
             FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.HobDial, transform.position, true);
             oldPotVal = potVal;
@@ -66,8 +60,7 @@ public class HobDial : MonoBehaviour
     {
         ParticleSystem.EmissionModule fireEmmision = FireSystem.emission;
 
-
-        fireEmmisionVal = MapValue(fireLevel, 1f, 100f, 3f, 35f);
+        fireEmmisionVal = MapValue(fireLevel, 1f, 100f, 3f, 35f);   //emmision goes from 3 to 35 particles per second
         fireEmmision.rateOverTime = fireEmmisionVal;
     }
 

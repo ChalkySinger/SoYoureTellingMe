@@ -41,8 +41,8 @@ public class CanvasScript : MonoBehaviour
 
     [Header("Progress Bar")]
     [SerializeField] Slider progressSlider;
-    [SerializeField] float progressIncreaseVal = 1f; //how much to increase by
-    [SerializeField] float progressBarTimerCountdown = .5f; //how often to increase
+    [SerializeField] float progressIncreaseVal = 2f; //how much to increase by
+    [SerializeField] float progressBarTimerCountdown = .35f; //how often to increase
 
     float progressBarTimer;
 
