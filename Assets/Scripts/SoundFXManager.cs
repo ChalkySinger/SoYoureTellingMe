@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SoundFXManager : MonoBehaviour
 {
@@ -82,5 +83,20 @@ public class SoundFXManager : MonoBehaviour
                 PlaySoundFX(eggCrack, spawnPoint);
                 break;
         }
+    }
+
+    public void SizzleShort1(Vector3 position)
+    {
+        PlaySoundFX(sizzle[2], position);
+    }
+
+    public void SizzleShort2(Vector3 position)
+    {
+        PlaySoundFX(sizzle[3], position);
+    }
+
+    public void SizzleLong(Vector3 position)
+    {
+        PlaySoundFX(sizzle[1], position);
     }
 }
