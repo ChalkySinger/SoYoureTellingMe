@@ -11,7 +11,7 @@ public class HobDial : MonoBehaviour
 
     [SerializeField] float fireLevel = 1f;
     [SerializeField] float fireEmmisionVal = 3f;
-    int potVal;
+    int potVal, oldPotVal;
 
 
     [SerializeField] ParticleSystem FireSystem;
@@ -41,6 +41,12 @@ public class HobDial : MonoBehaviour
         fireLevel = MapValue(mappedPotVal, -30f, 210f, 1f, 100f);
 
         FireParticleUpdate();
+
+        if(potVal > oldPotVal + 5 || potVal < oldPotVal - 5)
+        {
+            FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.HobDial, transform.position, true);
+            oldPotVal = potVal;
+        }
      
     }
 

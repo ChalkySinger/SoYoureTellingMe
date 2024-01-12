@@ -26,6 +26,8 @@ public class PanScript : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
+        InvokeRepeating("PlaySizzle", 0f, 60f);
+
     }
 
 
@@ -51,6 +53,7 @@ public class PanScript : MonoBehaviour
         if(cooking)
         {
             Debug.Log("uhh " + panVel);
+            
 
         }
         else
@@ -68,7 +71,6 @@ public class PanScript : MonoBehaviour
         {
             cooking = true;
 
-            FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
         }
         else
         {
@@ -79,5 +81,10 @@ public class PanScript : MonoBehaviour
     public bool IsCooking()
     {
         return cooking;
+    }
+
+    void PlaySizzle()
+    {
+        FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position, true);
     }
 }

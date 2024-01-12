@@ -46,7 +46,7 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource, audioLength);
     }
 
-    public void PlayRandomSoundFX(AudioClip[] audioClip, Vector3 spawnPoint)
+    public void PlayRandomSoundFX(AudioClip[] audioClip, Vector3 spawnPoint, bool pitch)
     {
         int rand = Random.Range(0, audioClip.Length);
 
@@ -56,6 +56,13 @@ public class SoundFXManager : MonoBehaviour
 
         audioSource.volume = PlayerPrefs.GetFloat("VolumeValue");
 
+        if (pitch)
+        {
+            float randPitch = Random.Range(-0.4f, 0.4f);
+            audioSource.pitch += randPitch;
+
+        }
+
         audioSource.Play();
 
         float audioLength = audioSource.clip.length;
@@ -63,7 +70,8 @@ public class SoundFXManager : MonoBehaviour
         Destroy(audioSource, audioLength);
     }
 
-    public void AudioTrigger(SoundFXTypes audioType, Vector3 spawnPoint)
+    //overload to allow pitch shift by random value
+    public void AudioTrigger(SoundFXTypes audioType, Vector3 spawnPoint, bool pitchShift)
     {
         switch(audioType)
         {
@@ -71,13 +79,13 @@ public class SoundFXManager : MonoBehaviour
                 PlaySoundFX(hobDial, spawnPoint);
                 break;
             case SoundFXTypes.BottlePops:
-                PlayRandomSoundFX(bottlePops, spawnPoint);
+                PlayRandomSoundFX(bottlePops, spawnPoint, pitchShift);
                 break;
             case SoundFXTypes.Chopping:
                 PlaySoundFX(chopping, spawnPoint);
                 break;
             case SoundFXTypes.Sizzle:
-                PlayRandomSoundFX(sizzle, spawnPoint);
+                PlayRandomSoundFX(sizzle, spawnPoint, pitchShift);
                 break;
             case SoundFXTypes.EggCrack:
                 PlaySoundFX(eggCrack, spawnPoint);

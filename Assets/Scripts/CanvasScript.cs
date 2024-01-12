@@ -454,22 +454,38 @@ public class CanvasScript : MonoBehaviour
                 case "Sauce":
                     SpawnIngredients(1, 1, ingredients[0], Quaternion.identity);
                     cdTimer = cooldown;
+
+                    FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.BottlePops, transform.position, true);
+
                     break;
                 case "Green Onion":
-                    SpawnIngredients(7, 21, ingredients[1], Random.rotation);
+                    SpawnIngredients(8, 21, ingredients[1], Random.rotation);
                     cdTimer = cooldown;
+
+                    FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.Chopping, transform.position, false);
+
                     break;
                 case "Shrimp":
-                    SpawnIngredients(3, 10, ingredients[2], Random.rotation);
+                    SpawnIngredients(8, 21, ingredients[2], Random.rotation);
                     cdTimer = cooldown / 3;  //less cooldown if chosen shrimp
+
+                    FindObjectOfType<SoundFXManager>().SizzleShort1(transform.position);
+
                     break;
                 case "Egg":
                     SpawnIngredients(1, 3, ingredients[3], Random.rotation);
                     cdTimer = cooldown;
+
+                    FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.EggCrack, transform.position, false);
+
                     break;
                 case "Rice":
-                    SpawnIngredients(1, 1, ingredients[4], Quaternion.identity);
+                    SpawnIngredients(1, 3, ingredients[4], Quaternion.identity);
                     cdTimer = cooldown;
+
+                    
+                    FindObjectOfType<SoundFXManager>().SizzleShort2(transform.position);
+
                     break;
             }
 
