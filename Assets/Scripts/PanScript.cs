@@ -15,7 +15,7 @@ public class PanScript : MonoBehaviour
 
 
     bool cooking;
-    float timer, panVel;
+    float panVel;
     [SerializeField] float boolTrueTime = .3f;
     
     
@@ -90,18 +90,13 @@ public class PanScript : MonoBehaviour
                 timeInTrigger = 0;
             }*//*
         }*/
-        panVel = rb.angularVelocity.normalized.magnitude;
 
-        if(panVel > .2)
+
+        panVel = rb.rotation.eulerAngles.magnitude * 0.1f;
+
+        if(panVel > 48)
         {
-            timer += Time.deltaTime;
             cooking = true;
-
-            if(timer > boolTrueTime)
-            {
-                cooking = false;
-                timer = 0;
-            }
 
             sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
         }

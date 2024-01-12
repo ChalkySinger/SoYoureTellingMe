@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class CanvasScript : MonoBehaviour
 {
-    [Header("Arduino")]
+    [SerializeField] PanScript panScript;
     //----------joystick----------
     bool joystickButtonDown = false, buttonHeld = false, buttonWasPressed = false, selectIngredient = false, executeSelection = false;
 
@@ -179,7 +179,7 @@ public class CanvasScript : MonoBehaviour
             hapticFeedback = false;
         }
 
-        if (insideFireSection && !winGame)
+        if (insideFireSection && !winGame && panScript.IsCooking())
         {
             hapticFeedback = false;
             Arduino.instance.SendData("o");
@@ -443,7 +443,7 @@ public class CanvasScript : MonoBehaviour
                     break;
                 case "Shrimp":
                     SpawnIngredients(3, 10, ingredients[2], Random.rotation);
-                    cdTimer = cooldown / 2;  //less cooldown if chosen shrimp
+                    cdTimer = cooldown / 3;  //less cooldown if chosen shrimp
                     break;
                 case "Egg":
                     SpawnIngredients(1, 3, ingredients[3], Random.rotation);
