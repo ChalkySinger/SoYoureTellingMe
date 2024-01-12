@@ -45,43 +45,22 @@ public class PanScript : MonoBehaviour
 
     }
 
-    private void Update()
-    {
 
-        CheckMovement();
-
-        if(cooking)
-        {
-            Debug.Log("uhh " + panVel);
-            
-
-        }
-        else
-        {
-            Debug.Log("uhh not cooking");
-        }
-    }
-
-
-    void CheckMovement()
+    public bool CheckMovement()
     {
         panVel = rb.rotation.eulerAngles.magnitude * 0.1f;
 
         if(panVel > 48)
         {
-            cooking = true;
+            return true;
 
         }
         else
         {
-            cooking = false;
+            return false;
         }
     }
 
-    public bool IsCooking()
-    {
-        return cooking;
-    }
 
     void PlaySizzle()
     {

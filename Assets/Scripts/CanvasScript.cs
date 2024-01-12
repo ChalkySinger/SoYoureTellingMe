@@ -188,7 +188,7 @@ public class CanvasScript : MonoBehaviour
         else
         {
             //progress bar increases when correct fire level and moving the pan
-            if (insideFireSection && panScript.IsCooking())
+            if (insideFireSection && panScript.CheckMovement())
             {
                 if (!sectionStop)
                 {
@@ -282,8 +282,8 @@ public class CanvasScript : MonoBehaviour
     {
         if (radialMenuActive)
         {
-            Vector2 mousePos = middle.position - /*Input.mousePosition*/ mappedJoystickVector;           //get pos from the middle and use ATan2 for circular movement
-            float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+            Vector2 joyPos = middle.position - mappedJoystickVector;           //get pos from the middle and use ATan2 for circular movement
+            float angle = Mathf.Atan2(joyPos.y, joyPos.x) * Mathf.Rad2Deg;
             angle += 180;                                                       //add 180 to use 0 - 360 rather than -180 - 180
 
             int currentItem = 0;
