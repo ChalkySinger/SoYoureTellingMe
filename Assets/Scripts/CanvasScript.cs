@@ -48,6 +48,9 @@ public class CanvasScript : MonoBehaviour
 
     bool winGame = false;
 
+    int barSections = 5;
+    bool nextSection;
+
 
     [Header("Radial Menu")]
     [SerializeField] Transform middle;
@@ -87,6 +90,7 @@ public class CanvasScript : MonoBehaviour
     void Start() 
     {
         fireLevelSlider.value = 1;
+        //progressSlider.value = 1;
 
         radialMenu.SetActive(false);
         radialMenuActive = false;
@@ -173,12 +177,14 @@ public class CanvasScript : MonoBehaviour
 
     void ProgressSliderSection()
     {
+        //stop progress bar moving once it reaches the end
         if (winGame)
         {
             progressSlider.value = progressSlider.maxValue;
             hapticFeedback = false;
         }
 
+        //progress bar increases when correct fire level and moving the pan
         if (insideFireSection && !winGame && panScript.IsCooking())
         {
             hapticFeedback = false;
@@ -194,7 +200,7 @@ public class CanvasScript : MonoBehaviour
             
         }
 
-    
+        //decrease progress bar when not inside fire section
         barDecreaseCountdown -= Time.deltaTime; //waits 10 seconds before allowing the timer to go down
         if (barDecreaseCountdown <= 0f)
         {

@@ -5,12 +5,13 @@ using System.IO;
 using System.Threading;
 using System.IO.Ports;
 using System.Runtime.Remoting.Messaging;
+using UnityEngine.SceneManagement;
 
 public class Arduino : MonoBehaviour
 {
     public static Arduino instance;
 
-    [SerializeField] string portName;
+    [SerializeField] string portName = "COM5";
     [SerializeField] int baudRate = 115200; // Higer baud rate due to the Gyro
     SerialPort serialPort;
     Thread serialThread;
@@ -52,11 +53,16 @@ public class Arduino : MonoBehaviour
     {
         OpenSerial();
         StartThread();
+
+        string loadPort = PlayerPrefs.GetString("ComPort");
+        portName = loadPort;
     }
 
     private void Update()
     {
         GetInputs();
+
+        FindMenuText();
     }
 
 
@@ -156,4 +162,19 @@ public class Arduino : MonoBehaviour
     }
 
     //------------------------------
+
+
+    //from the scenes that have settings, set the portname to what was entered into the input field 
+    void FindMenuText()
+    {
+        if(SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            portName = FindObjectOfType<MainMenu>().GetComPort();
+        }
+    }
+
+    public void InputFieldComPort()
+    {
+        PlayerPrefs.SetString("ComPort", portName);
+    }
 }
