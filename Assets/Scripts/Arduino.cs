@@ -62,7 +62,7 @@ public class Arduino : MonoBehaviour
     {
         GetInputs();
 
-        FindMenuText();
+        //FindMenuText();
     }
 
 
@@ -165,7 +165,7 @@ public class Arduino : MonoBehaviour
 
 
     //from the scenes that have settings, set the portname to what was entered into the input field 
-    void FindMenuText()
+    public void FindMenuText()
     {
         if(SceneManager.GetActiveScene().buildIndex == 0 || SceneManager.GetActiveScene().buildIndex == 3 || SceneManager.GetActiveScene().buildIndex == 4)
         {

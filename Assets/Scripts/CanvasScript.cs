@@ -7,6 +7,8 @@ using UnityEngine;
 //using UnityEngine.SocialPlatforms.GameCenter;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
+using Random = UnityEngine.Random;
 
 public class CanvasScript : MonoBehaviour
 {
@@ -48,8 +50,9 @@ public class CanvasScript : MonoBehaviour
 
     bool winGame = false;
 
-    int barSections = 5;
-    bool nextSection;
+
+    bool sectionStop, nextSection;
+    float[] sectionArray = { 100 / 6, (100 / 6) * 2, (100 / 6) * 3, (100 / 6) * 4, (100 / 6) * 5 };
 
 
     [Header("Radial Menu")]
@@ -90,7 +93,7 @@ public class CanvasScript : MonoBehaviour
     void Start() 
     {
         fireLevelSlider.value = 1;
-        //progressSlider.value = 1;
+        progressSlider.value = 1;
 
         radialMenu.SetActive(false);
         radialMenuActive = false;
@@ -134,8 +137,8 @@ public class CanvasScript : MonoBehaviour
 
 
         MotorOnOff();
-        
-        
+
+        //ProgressBarSections();
     }
 
     void SetFireSlider()
@@ -183,22 +186,31 @@ public class CanvasScript : MonoBehaviour
             progressSlider.value = progressSlider.maxValue;
             hapticFeedback = false;
         }
-
-        //progress bar increases when correct fire level and moving the pan
-        if (insideFireSection && !winGame && panScript.IsCooking())
+        else
         {
-            hapticFeedback = false;
-            Arduino.instance.SendData("o");
-
-            progressBarTimer -= Time.deltaTime;
-            if (progressBarTimer < 0)
+            //progress bar increases when correct fire level and moving the pan
+            if (insideFireSection && panScript.IsCooking())
             {
-                progressSlider.value += progressIncreaseVal;
+                if (!sectionStop)
+                {
+                    hapticFeedback = false;
+                    Arduino.instance.SendData("o");
 
-                progressBarTimer = progressBarTimerCountdown;
-            }
+                    progressBarTimer -= Time.deltaTime;
+                    if (progressBarTimer < 0)
+                    {
+                        progressSlider.value += progressIncreaseVal;
+
+                        progressBarTimer = progressBarTimerCountdown;
+                    }
+                    
+                }
+
             
+            }
+
         }
+
 
         //decrease progress bar when not inside fire section
         barDecreaseCountdown -= Time.deltaTime; //waits 10 seconds before allowing the timer to go down
@@ -466,7 +478,6 @@ public class CanvasScript : MonoBehaviour
     }
 
    
-
     void MotorOnOff()
     {
         if (hapticFeedback)
@@ -483,5 +494,31 @@ public class CanvasScript : MonoBehaviour
     private void OnDisable()
     {
         hapticFeedback = false;
+    }
+
+
+    void ProgressBarSections()
+    {
+        float section = (progressSlider.maxValue / sectionArray.Length);
+
+        float nextSection = section * 2;
+
+        if (progressSlider.value < sectionArray[0])
+        {
+            sectionStop = true;    //stop progress slider if thisSection true
+
+        }
+
+        if(selectIngredient)
+        {
+            sectionStop = false;
+        }
+
+        //check progress slider is at the section 
+        //stop progressing forward 
+        //ingredient has to be selected
+        //then allow slider to keep progressing
+
+
     }
 }

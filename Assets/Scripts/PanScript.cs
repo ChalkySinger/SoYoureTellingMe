@@ -7,7 +7,6 @@ using UnityEngine.AI;
 public class PanScript : MonoBehaviour
 {
     Rigidbody rb;
-    SoundFXManager sfx;
     //[SerializeField] Arduino arduino;
 
     Vector3 gyro;
@@ -27,7 +26,6 @@ public class PanScript : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-        sfx = FindObjectOfType<SoundFXManager>();
     }
 
 
@@ -48,7 +46,7 @@ public class PanScript : MonoBehaviour
     private void Update()
     {
 
-        CheckkMovement();
+        CheckMovement();
 
         if(cooking)
         {
@@ -62,43 +60,15 @@ public class PanScript : MonoBehaviour
     }
 
 
-    void CheckkMovement()
+    void CheckMovement()
     {
-        /*foreach (GameObject item in itemsInPan)
-        {
-            Vector3 itemVel = item.GetComponent<Rigidbody>().velocity;
-
-            if(itemVel.magnitude > 1)
-            {
-                Debug.Log("Vel: " +  itemVel.magnitude);
-
-                timeInTrigger += Time.deltaTime;
-                cooking = true;
-
-                if (timeInTrigger > boolTrueTime)
-                {
-                    cooking = false;
-                    timeInTrigger = 0;
-                }
-
-
-                sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
-            }
-            *//*else
-            {
-                cooking = false;
-                timeInTrigger = 0;
-            }*//*
-        }*/
-
-
         panVel = rb.rotation.eulerAngles.magnitude * 0.1f;
 
         if(panVel > 48)
         {
             cooking = true;
 
-            sfx.AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
+            FindObjectOfType<SoundFXManager>().AudioTrigger(SoundFXManager.SoundFXTypes.Sizzle, transform.position);
         }
         else
         {

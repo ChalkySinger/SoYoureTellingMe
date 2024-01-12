@@ -13,7 +13,12 @@ public class SceneSwitcher : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        /*if(Input.GetMouseButtonDown(0))
+        {
+            SwitchScene();
+        }*/
+
+        if(Arduino.instance.GetJoyVal().z == 0)
         {
             SwitchScene();
         }

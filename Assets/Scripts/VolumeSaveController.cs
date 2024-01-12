@@ -24,6 +24,8 @@ public class VolumeSaveController : MonoBehaviour
         float volumeValue = volumeSlider.value;
         PlayerPrefs.SetFloat("VolumeValue", volumeValue);
         LoadValues();
+
+        Arduino.instance.FindMenuText();
     }
 
     void LoadValues()
